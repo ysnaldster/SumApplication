@@ -6,9 +6,7 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.GsonTester;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
@@ -29,24 +27,24 @@ public class SumRequestRepositoryTest {
     SumRequestRepository sumRequestRepository;
 
     @Test
-    public void testGetBodyRequestEndpointRequestParam_GivenZeroAndOneAndThree_ShouldReturnObjectJSON()  throws Exception {
-        //Mandar Data
-      /*  int numberOne= 1500;
-        int numberTwo = 100;
-        String urlRequestParams = String.format("http://localhost/sumApp/sumRequestParam?numberOne=%s&numberTwo=%s", numberOne, numberTwo);
-        var responseRequestParams = restTemplate.postForEntity
-                (String.format("http://localhost:%s%s", port, urlRequestParams), null, String.class);
-        //Obtener
+    public void testGetBodyRequestEndpointRequestParam_GivenZeroAndOneAndThree_ShouldReturnObjectJSON() throws Exception {
 
+        String requestUrlRequestParams = "/sumApp/sumRequestParam?numberOne=300&numberTwo=400";
+        restTemplate.postForLocation(String.format("http://localhost:%s%s", port, requestUrlRequestParams),null);
 
-        //Validar
+        int numberOne = 300;
+        int numberTwo = 400;
 
+        SumRequestBody sumRequestBody = new SumRequestBody();
+        sumRequestBody.setId_request(1);
+        sumRequestBody.setNumberOne(numberOne);
+        sumRequestBody.setNumberTwo(numberTwo);
 
         Gson gson = new Gson();
         String JSON = gson.toJson(sumRequestBody);
         String JSON2 = gson.toJson(requestService.getObjectForIdRequest(1));
-        requestService.getObjectForIdRequest(1);
-        Assertions.assertEquals(JSON, JSON2);*/
+        Assertions.assertEquals(JSON, JSON2);
+
     }
 
 }
