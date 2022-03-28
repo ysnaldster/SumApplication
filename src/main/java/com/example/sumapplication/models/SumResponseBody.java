@@ -6,6 +6,15 @@ public class SumResponseBody {
     private String endpoint;
     private int result_sum;
 
+    public SumResponseBody() {}
+
+    public SumResponseBody(int id_response, int id_request_fk, String endpoint, int result_sum) {
+        this.id_response = id_response;
+        this.id_request_fk = id_request_fk;
+        this.endpoint = endpoint;
+        this.result_sum = result_sum;
+    }
+
     public int getId_response() {
         return id_response;
     }

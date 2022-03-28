@@ -2,7 +2,6 @@ package com.example.sumapplication.controller;
 
 
 import com.example.sumapplication.models.SumRequestBody;
-import com.example.sumapplication.models.SumResponseBody;
 import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
 import com.example.sumapplication.service.SumService;
@@ -45,13 +44,4 @@ public class SumController {
         return sumService.operationSum(sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());
     }
 
-    @PostMapping(value = "/prueba")
-    public SumRequestBody ejecutarLaPrueba() {
-        return requestService.getObjectForIdRequest(1);
-    }
-
-    @PostMapping (value = "/prueba2")
-    public SumResponseBody ejecutarLaPrueba2(){
-        return responseService.getObjectForIdResponse(2);
-    }
 }

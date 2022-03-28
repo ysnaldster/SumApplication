@@ -6,6 +6,14 @@ public class SumRequestBody {
     private int numberOne;
     private int numberTwo;
 
+    public SumRequestBody() {}
+
+    public SumRequestBody(int id_request, int numberOne, int numberTwo) {
+        this.id_request = id_request;
+        this.numberOne = numberOne;
+        this.numberTwo = numberTwo;
+    }
+
     public int getId_request() {
         return id_request;
     }
