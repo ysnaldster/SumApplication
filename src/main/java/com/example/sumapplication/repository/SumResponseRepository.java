@@ -18,19 +18,19 @@ public class SumResponseRepository implements ISumResponseRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public void saveResponseSum(String endpoint, int result_sum) {
-        String sql = "INSERT INTO responses (endpoint, result_sum) VALUES (:endpoint, :result_sum)";
+    public void saveResponseSum(String endpoint, int resultSum) {
+        String sql = "INSERT INTO responses (endpoint, result_sum) VALUES (:endpoint, :resultSum)";
         SumResponseBody responseBody = new SumResponseBody();
         responseBody.setEndpoint(endpoint);
-        responseBody.setResult_sum(result_sum);
+        responseBody.setResultSum(resultSum);
         BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(responseBody);
         namedParameterJdbcTemplate.update(sql, paramSource);
     }
 
     @Override
-    public SumResponseBody getDataOfTableResponses(int id_response) {
-        SqlParameterSource namedParameters = new MapSqlParameterSource("id_response", id_response);
+    public SumResponseBody getDataOfTableResponses(int idResponse) {
+        SqlParameterSource namedParameters = new MapSqlParameterSource("idResponse", idResponse);
         return namedParameterJdbcTemplate.queryForObject(
-                "SELECT * FROM RESPONSES WHERE ID_RESPONSE = :id_response", namedParameters, new BeanPropertyRowMapper<>(SumResponseBody.class));
+                "SELECT * FROM RESPONSES WHERE ID_RESPONSE = :idResponse", namedParameters, new BeanPropertyRowMapper<>(SumResponseBody.class));
     }
 }

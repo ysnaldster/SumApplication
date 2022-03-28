@@ -19,8 +19,8 @@ public class RequestService {
         sumRequestRepository.saveRequestNumbers(sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());
     }
 
-    public SumRequestBody getObjectForIdRequest(int id_request){
-        return sumRequestRepository.getDataOfTableRequests(id_request);
+    public SumRequestBody getObjectForIdRequest(int idRequest){
+        return sumRequestRepository.getDataOfTableRequests(idRequest);
     }
 
 }

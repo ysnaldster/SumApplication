@@ -6,5 +6,5 @@ public interface ISumRequestRepository {
 
     void saveRequestNumbers(int numberOne, int numberTwo);
 
-    SumRequestBody getDataOfTableRequests(int id_request);
+    SumRequestBody getDataOfTableRequests(int idRequest);
 }

@@ -1,5 +1,6 @@
 package com.example.sumapplication.service;
 
+import com.example.sumapplication.models.SumResult;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,9 +17,9 @@ public class SumServiceTest {
     @Test
     public void testSum_GivenFourAndFive_ShouldReturnNine() {
         Gson gson = new Gson();
-        //Check Expected Result
+        SumResult sumResult = new SumResult(9);
         ResponseEntity result = sumService.operationSum(4, 5);
-        Assertions.assertEquals("{\"sumResult\":9}", gson.toJson(result.getBody()));
+        Assertions.assertEquals(gson.toJson(sumResult), gson.toJson(result.getBody()));
 
     }
 }

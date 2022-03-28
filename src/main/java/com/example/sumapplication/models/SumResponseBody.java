@@ -1,34 +1,34 @@
 package com.example.sumapplication.models;
 
 public class SumResponseBody {
-    private int id_response;
-    private int id_request_fk;
+    private int idResponse;
+    private int idRequestFk;
     private String endpoint;
-    private int result_sum;
+    private int resultSum;
 
     public SumResponseBody() {}
 
-    public SumResponseBody(int id_response, int id_request_fk, String endpoint, int result_sum) {
-        this.id_response = id_response;
-        this.id_request_fk = id_request_fk;
+    public SumResponseBody(int idResponse, int idRequestFk, String endpoint, int resultSum) {
+        this.idResponse = idResponse;
+        this.idRequestFk = idRequestFk;
         this.endpoint = endpoint;
-        this.result_sum = result_sum;
+        this.resultSum = resultSum;
     }
 
-    public int getId_response() {
-        return id_response;
+    public int getIdResponse() {
+        return idResponse;
     }
 
-    public void setId_response(int id_response) {
-        this.id_response = id_response;
+    public void setId_response(int idResponse) {
+        this.idResponse = idResponse;
     }
 
-    public int getId_request_fk() {
-        return id_request_fk;
+    public int getIdRequestFk() {
+        return idRequestFk;
     }
 
-    public void setId_request_fk(int id_request_fk) {
-        this.id_request_fk = id_request_fk;
+    public void setIdRequestFk(int idRequestFk) {
+        this.idRequestFk = idRequestFk;
     }
 
     public String getEndpoint() {
@@ -39,11 +39,11 @@ public class SumResponseBody {
         this.endpoint = endpoint;
     }
 
-    public int getResult_sum() {
-        return result_sum;
+    public int getResultSum() {
+        return resultSum;
     }
 
-    public void setResult_sum(int result_sum) {
-        this.result_sum = result_sum;
+    public void setResultSum(int resultSum) {
+        this.resultSum = resultSum;
     }
 }

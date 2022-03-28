@@ -17,13 +17,14 @@ public class ResponseService {
     }
 
     public void setResponseWithBodyRequest(SumRequestBody sumRequestBody) {
+        String endpoint = "postSumWithRequestBody";
         SumResponseBody sumResponseBody = new SumResponseBody();
-        sumResponseBody.setEndpoint("getSumWithRequestBody");
-        sumResponseBody.setResult_sum(sumRequestBody.getNumberOne() + sumRequestBody.getNumberTwo());
-        sumResponseRepository.saveResponseSum(sumResponseBody.getEndpoint(), sumResponseBody.getResult_sum());
+        sumResponseBody.setEndpoint(endpoint);
+        sumResponseBody.setResultSum(sumRequestBody.getNumberOne() + sumRequestBody.getNumberTwo());
+        sumResponseRepository.saveResponseSum(sumResponseBody.getEndpoint(), sumResponseBody.getResultSum());
     }
 
-    public SumResponseBody getObjectForIdResponse(int id_response){
-        return sumResponseRepository.getDataOfTableResponses(id_response);
+    public SumResponseBody getObjectForIdResponse(int idResponse){
+        return sumResponseRepository.getDataOfTableResponses(idResponse);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping(value = "/sumApp", produces = "application/json")
+@RequestMapping(value = "/sums", produces = "application/json")
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.OPTIONS})
 public class SumController {
@@ -23,22 +23,24 @@ public class SumController {
     @Autowired
     private SumService sumService;
 
-    @PostMapping(value = "/sumRequestParam", produces = "application/json")
-    public ResponseEntity getSumWithRequestParam(@RequestParam int numberOne, @RequestParam int numberTwo) {
+    @PostMapping(value = "/requestParam.postSum", produces = "application/json")
+    public ResponseEntity postSumWithRequestParam(@RequestParam int numberOne, @RequestParam int numberTwo) {
+        String endpoint = "postSumWithRequestParam";
         requestService.setNumbersWithParametersAndPositionsURL(numberOne, numberTwo);
-        responseService.setResponseWithParametersAndPositionsURL("getSumWithRequestParam", numberOne, numberTwo);
+        responseService.setResponseWithParametersAndPositionsURL(endpoint, numberOne, numberTwo);
         return sumService.operationSum(numberOne, numberTwo);
     }
 
-    @PostMapping(value = "/sumPathVariable/{numberOne}/{numberTwo}", produces = "application/json")
-    public ResponseEntity getSumWithPathVariable(@PathVariable("numberOne") int numberOne, @PathVariable("numberTwo") int numberTwo) {
+    @PostMapping(value = "/pathVariable.postSum/{numberOne}/{numberTwo}", produces = "application/json")
+    public ResponseEntity postSumWithPathVariable(@PathVariable("numberOne") int numberOne, @PathVariable("numberTwo") int numberTwo) {
+        String endpoint = "postSumWithPathVariable";
         requestService.setNumbersWithParametersAndPositionsURL(numberOne, numberTwo);
-        responseService.setResponseWithParametersAndPositionsURL("getSumWithPathVariable", numberOne, numberTwo);
+        responseService.setResponseWithParametersAndPositionsURL(endpoint, numberOne, numberTwo);
         return sumService.operationSum(numberOne, numberTwo);
     }
 
-    @PostMapping(value = "/sumRequestBody", produces = "application/json")
-    public ResponseEntity getSumWithRequestBody(@RequestBody SumRequestBody sumRequestBody) {
+    @PostMapping(value = "/requestBody.postSum", produces = "application/json")
+    public ResponseEntity postSumWithRequestBody(@RequestBody SumRequestBody sumRequestBody) {
         requestService.setNumbersWithBodyRequest(sumRequestBody);
         responseService.setResponseWithBodyRequest(sumRequestBody);
         return sumService.operationSum(sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());

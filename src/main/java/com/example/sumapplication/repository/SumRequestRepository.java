@@ -27,9 +27,9 @@ public class SumRequestRepository implements ISumRequestRepository {
     }
 
     @Override
-    public SumRequestBody getDataOfTableRequests(int id_request) {
-        SqlParameterSource namedParameters = new MapSqlParameterSource("id_request", id_request);
+    public SumRequestBody getDataOfTableRequests(int idRequest) {
+        SqlParameterSource namedParameters = new MapSqlParameterSource("idRequest", idRequest);
         return namedParameterJdbcTemplate.queryForObject(
-                "SELECT * FROM REQUESTS WHERE ID_REQUEST = :id_request", namedParameters, new BeanPropertyRowMapper<>(SumRequestBody.class));
+                "SELECT * FROM REQUESTS WHERE ID_REQUEST = :idRequest", namedParameters, new BeanPropertyRowMapper<>(SumRequestBody.class));
     }
 }

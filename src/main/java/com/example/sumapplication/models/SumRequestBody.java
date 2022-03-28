@@ -2,24 +2,24 @@ package com.example.sumapplication.models;
 
 public class SumRequestBody {
 
-    private int id_request;
+    private int idRequest;
     private int numberOne;
     private int numberTwo;
 
     public SumRequestBody() {}
 
-    public SumRequestBody(int id_request, int numberOne, int numberTwo) {
-        this.id_request = id_request;
+    public SumRequestBody(int idRequest, int numberOne, int numberTwo) {
+        this.idRequest = idRequest;
         this.numberOne = numberOne;
         this.numberTwo = numberTwo;
     }
 
-    public int getId_request() {
-        return id_request;
+    public int getIdRequest() {
+        return idRequest;
     }
 
-    public void setId_request(int id_request) {
-        this.id_request = id_request;
+    public void setIdRequest(int idRequest) {
+        this.idRequest = idRequest;
     }
 
     public int getNumberOne() {
