@@ -32,4 +32,5 @@ public class SumRequestRepository implements ISumRequestRepository {
         return namedParameterJdbcTemplate.queryForObject(
                 "SELECT * FROM REQUESTS WHERE ID_REQUEST = :idRequest", namedParameters, new BeanPropertyRowMapper<>(SumRequestBody.class));
     }
+
 }

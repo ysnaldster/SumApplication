@@ -33,4 +33,5 @@ public class SumResponseRepository implements ISumResponseRepository {
         return namedParameterJdbcTemplate.queryForObject(
                 "SELECT * FROM RESPONSES WHERE ID_RESPONSE = :idResponse", namedParameters, new BeanPropertyRowMapper<>(SumResponseBody.class));
     }
+
 }

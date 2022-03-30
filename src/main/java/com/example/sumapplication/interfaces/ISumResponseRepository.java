@@ -7,4 +7,5 @@ public interface ISumResponseRepository {
     void saveResponseSum(String endpoint, int resultSum);
 
     SumResponseBody getDataOfTableResponses(int idResponse);
+
 }

@@ -27,4 +27,5 @@ public class ResponseService {
     public SumResponseBody getObjectForIdResponse(int idResponse){
         return sumResponseRepository.getDataOfTableResponses(idResponse);
     }
+
 }
