@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,22 +30,23 @@ public class SumControllerSaveDataTests {
     @Autowired
     ResponseService responseService;
 
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-
     final String host = "http://localhost:%s%s";
     final Gson gson = new Gson();
     final int startID = 1;
-    final SqlParameterSource paramReset = new MapSqlParameterSource();
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     @AfterEach
     public void tearDown() {
-        namedParameterJdbcTemplate.update("DELETE FROM RESPONSES ", paramReset);
-        namedParameterJdbcTemplate.update("ALTER TABLE RESPONSES ALTER COLUMN ID_RESPONSE RESTART WITH " + startID, paramReset);
-        namedParameterJdbcTemplate.update("ALTER TABLE RESPONSES ALTER COLUMN ID_REQUEST_FK RESTART WITH " + startID, paramReset);
-        namedParameterJdbcTemplate.update("DELETE FROM REQUESTS ", paramReset);
-        namedParameterJdbcTemplate.update("ALTER TABLE REQUESTS ALTER COLUMN ID_REQUEST RESTART WITH " + startID, paramReset);
+        //Duda -> ¿Por qué esta sintaxis falla al momento de intentar implementar Restart Identity?
+        // jdbc.template.execute ("TRUNCATE TABLE RESPONSES RESTART IDENTITY")
+        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE");
+        jdbcTemplate.execute("TRUNCATE TABLE RESPONSES");
+        jdbcTemplate.execute("ALTER TABLE RESPONSES ALTER COLUMN ID_RESPONSE RESTART WITH " + startID);
+        jdbcTemplate.execute("ALTER TABLE RESPONSES ALTER COLUMN ID_REQUEST_FK RESTART WITH " + startID);
+        jdbcTemplate.execute("TRUNCATE TABLE REQUESTS ");
+        jdbcTemplate.execute("ALTER TABLE REQUESTS ALTER COLUMN ID_REQUEST RESTART WITH " + startID);
     }
 
     @Test
