@@ -4,6 +4,7 @@ import com.example.sumapplication.models.SumRequestBody;
 import com.example.sumapplication.models.SumResponseBody;
 import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
+import com.example.sumapplication.service.SumServiceTest;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -12,22 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SumControllerSaveDataTests {
-
-    @Container
-    private final PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer(DockerImageName.parse("postgres:12"))
-            .withDatabaseName("foo")
-            .withUsername("foo")
-            .withPassword("admin");
+public class SumControllerSaveDataTests extends SumServiceTest {
 
     @LocalServerPort
     private int port;
@@ -43,21 +33,14 @@ public class SumControllerSaveDataTests {
 
     final String host = "http://localhost:%s%s";
     final Gson gson = new Gson();
-    final int startID = 1;
+    final int wantedId = 1;
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     @AfterEach
     public void tearDown() {
-        //Duda -> ¿Por qué esta sintaxis falla al momento de intentar implementar Restart Identity?
-        // jdbc.template.execute ("TRUNCATE TABLE RESPONSES RESTART IDENTITY")
-        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE");
-        jdbcTemplate.execute("TRUNCATE TABLE RESPONSES");
-        jdbcTemplate.execute("ALTER TABLE RESPONSES ALTER COLUMN ID_RESPONSE RESTART WITH " + startID);
-        jdbcTemplate.execute("ALTER TABLE RESPONSES ALTER COLUMN ID_REQUEST_FK RESTART WITH " + startID);
-        jdbcTemplate.execute("TRUNCATE TABLE REQUESTS ");
-        jdbcTemplate.execute("ALTER TABLE REQUESTS ALTER COLUMN ID_REQUEST RESTART WITH " + startID);
+        jdbcTemplate.execute("TRUNCATE TABLE REQUESTS RESTART IDENTITY CASCADE ");
     }
 
     @Test
@@ -68,12 +51,12 @@ public class SumControllerSaveDataTests {
         String requestUrlPathVariable = String.format("/sums/pathVariable.postSum/%s/%s", numberOne, numberTwo);
         restTemplate.postForLocation(String.format(host, port, requestUrlPathVariable), null);
 
-        SumRequestBody sumRequestBody = new SumRequestBody(startID, numberOne, numberTwo);
-        SumResponseBody sumResponseBody = new SumResponseBody(startID, startID, endpoint,
+        SumRequestBody sumRequestBody = new SumRequestBody(wantedId, numberOne, numberTwo);
+        SumResponseBody sumResponseBody = new SumResponseBody(wantedId, wantedId, endpoint,
                 numberOne + numberTwo);
 
-        assertEquals(gson.toJson(sumRequestBody), gson.toJson(requestService.getObjectForIdRequest(startID)));
-        assertEquals(gson.toJson(sumResponseBody), gson.toJson(responseService.getObjectForIdResponse(startID)));
+        assertEquals(gson.toJson(sumRequestBody), gson.toJson(requestService.getObjectForIdRequest(wantedId)));
+        assertEquals(gson.toJson(sumResponseBody), gson.toJson(responseService.getObjectForIdResponse(wantedId)));
     }
 
 
@@ -82,15 +65,15 @@ public class SumControllerSaveDataTests {
         int numberOne = 500;
         int numberTwo = 900;
         String endpoint = "postSumWithRequestBody";
-        SumRequestBody sumRequestBody = new SumRequestBody(startID, numberOne, numberTwo);
+        SumRequestBody sumRequestBody = new SumRequestBody(wantedId, numberOne, numberTwo);
         String requestUrlRequestBody = "/sums/requestBody.postSum";
         restTemplate.postForLocation(String.format(host, port, requestUrlRequestBody), sumRequestBody);
 
-        SumResponseBody sumResponseBody = new SumResponseBody(startID, startID, endpoint,
+        SumResponseBody sumResponseBody = new SumResponseBody(wantedId, wantedId, endpoint,
                 numberOne + numberTwo);
 
-        assertEquals(gson.toJson(sumResponseBody), gson.toJson(responseService.getObjectForIdResponse(startID)));
-        assertEquals(gson.toJson(sumRequestBody), gson.toJson(requestService.getObjectForIdRequest(startID)));
+        assertEquals(gson.toJson(sumResponseBody), gson.toJson(responseService.getObjectForIdResponse(wantedId)));
+        assertEquals(gson.toJson(sumRequestBody), gson.toJson(requestService.getObjectForIdRequest(wantedId)));
 
     }
 
@@ -102,12 +85,12 @@ public class SumControllerSaveDataTests {
         String requestUrlRequestParams = String.format("/sums/requestParam.postSum?numberOne=%s&numberTwo=%s", numberOne, numberTwo);
         restTemplate.postForLocation(String.format(host, port, requestUrlRequestParams), null);
 
-        SumRequestBody sumRequestBody = new SumRequestBody(startID, numberOne, numberTwo);
-        SumResponseBody sumResponseBody = new SumResponseBody(startID, startID, endpoint,
+        SumRequestBody sumRequestBody = new SumRequestBody(wantedId, numberOne, numberTwo);
+        SumResponseBody sumResponseBody = new SumResponseBody(wantedId, wantedId, endpoint,
                 numberOne + numberTwo);
 
-        assertEquals(gson.toJson(sumRequestBody), gson.toJson(requestService.getObjectForIdRequest(startID)));
-        assertEquals(gson.toJson(sumResponseBody), gson.toJson(responseService.getObjectForIdResponse(startID)));
+        assertEquals(gson.toJson(sumRequestBody), gson.toJson(requestService.getObjectForIdRequest(wantedId)));
+        assertEquals(gson.toJson(sumResponseBody), gson.toJson(responseService.getObjectForIdResponse(wantedId)));
     }
 
 }

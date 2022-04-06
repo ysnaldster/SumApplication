@@ -19,7 +19,7 @@ public class SumResponseRepository implements ISumResponseRepository {
 
     @Override
     public void saveResponseSum(String endpoint, int resultSum) {
-        String sql = "INSERT INTO responses (endpoint, result_sum) VALUES (:endpoint, :resultSum)";
+        String sql = "INSERT INTO RESPONSES (endpoint, result_sum) VALUES (:endpoint, :resultSum)";
         SumResponseBody responseBody = new SumResponseBody();
         responseBody.setEndpoint(endpoint);
         responseBody.setResultSum(resultSum);

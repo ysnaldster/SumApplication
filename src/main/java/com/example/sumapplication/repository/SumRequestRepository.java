@@ -18,7 +18,7 @@ public class SumRequestRepository implements ISumRequestRepository {
 
     @Override
     public void saveRequestNumbers(int numberOne, int numberTwo) {
-        String sql = "INSERT INTO requests (number_one, number_two) VALUES (:numberOne, :numberTwo)";
+        String sql = "INSERT INTO REQUESTS (number_one, number_two) VALUES (:numberOne, :numberTwo)";
         SumRequestBody sumRequestBody = new SumRequestBody();
         sumRequestBody.setNumberOne(numberOne);
         sumRequestBody.setNumberTwo(numberTwo);
