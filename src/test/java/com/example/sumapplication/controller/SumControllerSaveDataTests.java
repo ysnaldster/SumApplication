@@ -1,11 +1,11 @@
 package com.example.sumapplication.controller;
 
+import com.example.sumapplication.containers.ConfigurationContainer;
 import com.example.sumapplication.models.SumRequestBody;
 import com.example.sumapplication.models.SumResponseBody;
 import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
-import com.example.sumapplication.service.SumServiceTest;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SumControllerSaveDataTests extends SumServiceTest {
+public class SumControllerSaveDataTests extends ConfigurationContainer {
 
     @LocalServerPort
     private int port;
@@ -32,7 +32,8 @@ public class SumControllerSaveDataTests extends SumServiceTest {
     ResponseService responseService;
 
     final String host = "http://localhost:%s%s";
-    final Gson gson = new Gson();
+    final ObjectMapper objectMapper = new ObjectMapper();
+
     final int wantedId = 1;
 
     @Autowired
@@ -40,7 +41,12 @@ public class SumControllerSaveDataTests extends SumServiceTest {
 
     @AfterEach
     public void tearDown() {
-        jdbcTemplate.execute("TRUNCATE TABLE REQUESTS RESTART IDENTITY CASCADE ");
+
+        jdbcTemplate.execute("DELETE FROM RESPONSES");
+        jdbcTemplate.execute("ALTER SEQUENCE RESPONSES_ID_RESPONSE_SEQ RESTART WITH 1");
+        jdbcTemplate.execute("ALTER SEQUENCE RESPONSES_ID_REQUEST_FK_SEQ RESTART WITH 1");
+        jdbcTemplate.execute("ALTER SEQUENCE REQUESTS_ID_REQUEST_SEQ RESTART WITH 1");
+        jdbcTemplate.execute("DELETE FROM REQUESTS");
     }
 
     @Test
@@ -52,11 +58,13 @@ public class SumControllerSaveDataTests extends SumServiceTest {
         restTemplate.postForLocation(String.format(host, port, requestUrlPathVariable), null);
 
         SumRequestBody sumRequestBody = new SumRequestBody(wantedId, numberOne, numberTwo);
-        SumResponseBody sumResponseBody = new SumResponseBody(wantedId, wantedId, endpoint,
-                numberOne + numberTwo);
+        SumResponseBody sumResponseBody = new SumResponseBody(wantedId, wantedId, endpoint, numberOne + numberTwo);
 
-        assertEquals(gson.toJson(sumRequestBody), gson.toJson(requestService.getObjectForIdRequest(wantedId)));
-        assertEquals(gson.toJson(sumResponseBody), gson.toJson(responseService.getObjectForIdResponse(wantedId)));
+        assertEquals(objectMapper.writeValueAsString(sumRequestBody),
+                objectMapper.writeValueAsString(requestService.getObjectForIdRequest(wantedId)));
+        assertEquals(objectMapper.writeValueAsString(sumResponseBody),
+                objectMapper.writeValueAsString(responseService.getObjectForIdResponse(wantedId)));
+
     }
 
 
@@ -69,12 +77,12 @@ public class SumControllerSaveDataTests extends SumServiceTest {
         String requestUrlRequestBody = "/sums/requestBody.postSum";
         restTemplate.postForLocation(String.format(host, port, requestUrlRequestBody), sumRequestBody);
 
-        SumResponseBody sumResponseBody = new SumResponseBody(wantedId, wantedId, endpoint,
-                numberOne + numberTwo);
+        SumResponseBody sumResponseBody = new SumResponseBody(wantedId, wantedId, endpoint, numberOne + numberTwo);
 
-        assertEquals(gson.toJson(sumResponseBody), gson.toJson(responseService.getObjectForIdResponse(wantedId)));
-        assertEquals(gson.toJson(sumRequestBody), gson.toJson(requestService.getObjectForIdRequest(wantedId)));
-
+        assertEquals(objectMapper.writeValueAsString(sumRequestBody),
+                objectMapper.writeValueAsString(requestService.getObjectForIdRequest(wantedId)));
+        assertEquals(objectMapper.writeValueAsString(sumResponseBody),
+                objectMapper.writeValueAsString(responseService.getObjectForIdResponse(wantedId)));
     }
 
     @Test
@@ -86,11 +94,12 @@ public class SumControllerSaveDataTests extends SumServiceTest {
         restTemplate.postForLocation(String.format(host, port, requestUrlRequestParams), null);
 
         SumRequestBody sumRequestBody = new SumRequestBody(wantedId, numberOne, numberTwo);
-        SumResponseBody sumResponseBody = new SumResponseBody(wantedId, wantedId, endpoint,
-                numberOne + numberTwo);
+        SumResponseBody sumResponseBody = new SumResponseBody(wantedId, wantedId, endpoint, numberOne + numberTwo);
 
-        assertEquals(gson.toJson(sumRequestBody), gson.toJson(requestService.getObjectForIdRequest(wantedId)));
-        assertEquals(gson.toJson(sumResponseBody), gson.toJson(responseService.getObjectForIdResponse(wantedId)));
+        assertEquals(objectMapper.writeValueAsString(sumRequestBody),
+                objectMapper.writeValueAsString(requestService.getObjectForIdRequest(wantedId)));
+        assertEquals(objectMapper.writeValueAsString(sumResponseBody),
+                objectMapper.writeValueAsString(responseService.getObjectForIdResponse(wantedId)));
     }
 
 }

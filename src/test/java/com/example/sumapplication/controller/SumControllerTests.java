@@ -1,9 +1,10 @@
 package com.example.sumapplication.controller;
 
+import com.example.sumapplication.containers.ConfigurationContainer;
 import com.example.sumapplication.models.SumResult;
 import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SumControllerTests {
+public class SumControllerTests extends ConfigurationContainer {
 
     @LocalServerPort
     private int port;
@@ -33,9 +34,7 @@ public class SumControllerTests {
     final String host = "http://localhost:%s%s";
     final String statusCodeBadRequest = "400 BAD_REQUEST";
     final String statusCode200 = "200 OK";
-    final Gson gson = new Gson();
-
-    //Test Bad Requests ->
+    final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     public void testGetStatusCodeRequestParams_GivenNumberOneIsIntegerAndNumberTwoIsString_Should400BadRequest() throws Exception {
@@ -80,11 +79,12 @@ public class SumControllerTests {
         int numberOne = 10;
         int numberTwo = 15;
         SumResult sumResult = new SumResult(numberOne + numberTwo);
+        String sumResultAsString = objectMapper.writeValueAsString(sumResult);
         String requestUrlRequestParams = String.format("/sums/requestParam.postSum?numberOne=%s&numberTwo=%s", numberOne, numberTwo);
         var responseRequestParams = restTemplate.postForEntity
                 (String.format(host, port, requestUrlRequestParams), null, String.class);
         assertThat(responseRequestParams.getStatusCode().toString()).isEqualTo(statusCode200);
-        assertThat(responseRequestParams.getBody()).contains(gson.toJson(sumResult));
+        assertThat(responseRequestParams.getBody()).contains(sumResultAsString);
     }
 
     @Test
@@ -92,11 +92,12 @@ public class SumControllerTests {
         int numberOne = 5;
         int numberTwo = 10;
         SumResult sumResult = new SumResult(numberOne + numberTwo);
+        String sumResultAsString = objectMapper.writeValueAsString(sumResult);
         String requestUrlPathVariable = String.format("/sums/pathVariable.postSum/%s/%s", numberOne, numberTwo);
         var responsePathVariable = restTemplate.postForEntity
                 (String.format(host, port, requestUrlPathVariable), null, String.class);
         assertThat(responsePathVariable.getStatusCode().toString()).isEqualTo(statusCode200);
-        assertThat(responsePathVariable.getBody()).contains(gson.toJson(sumResult));
+        assertThat(responsePathVariable.getBody()).contains(sumResultAsString);
     }
 
     @Test
@@ -104,6 +105,7 @@ public class SumControllerTests {
         int numberOne = 11;
         int numberTwo = 9;
         SumResult sumResult = new SumResult(numberOne + numberTwo);
+        String sumResultAsString = objectMapper.writeValueAsString(sumResult);
         String requestUrlRequestParams = "/sums/requestBody.postSum";
         String jsonExpected = String.format("{\"numberOne\":%s,\"numberTwo\":%s}", numberOne, numberTwo);
         HttpHeaders headers = new HttpHeaders();
@@ -112,7 +114,7 @@ public class SumControllerTests {
         var responseRequestBody = restTemplate.postForEntity
                 (String.format(host, port, requestUrlRequestParams), requestEntity, String.class);
         assertThat(responseRequestBody.getStatusCode().toString()).isEqualTo(statusCode200);
-        assertThat(responseRequestBody.getBody()).contains(gson.toJson(sumResult));
+        assertThat(responseRequestBody.getBody()).contains(sumResultAsString);
     }
 
 }

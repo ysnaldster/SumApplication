@@ -11,5 +11,6 @@ CREATE TABLE responses(
     id_request_fk serial,
     endpoint  varchar(40),
     result_sum INT,
+    CONSTRAINT fk_responses_id_request
     FOREIGN KEY (id_request_fk) REFERENCES requests (id_request)
 );
