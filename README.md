@@ -1,4 +1,7 @@
+
+
 #Bienvenido a SumApplication
+***
 ###¿Qué es SumApplication? 
 SumApplication es un aplicativo que permite llevar a cabo sumas 
 algebraicas a través de dos dígitos que proporciona el usuario. 
@@ -22,53 +25,85 @@ A través de la creación de endpoints interactivos que permitan sumar dos núme
 por el lado de cliente; para luego ser procesados del lado del servidor, sumándolos e insertándolos
 en una base de datos con el fin de llevar a cabo un registro de cada operación realizada. 
 
-***
-##Lista de Contenido 
-| N° item | Contenido                                      |
-|---------|------------------------------------------------| 
-| 1       | ¿Cómo instalar y ejecutar SumApplication?      |
-| 2       | ¿Qué tecnologías y herramientas se utilizaron? |
-| 3       | Estructura de archivos                         |
-| 4       | Pruebas unitarias                              | 
-| 5       | Pruebas de integración                         | 
-| 6       | Enlaces de recursos                            | 
+##Tabla de Contenido 
+1. Instalación y ejecución
+2. Tecnologías Utilizadas
+3. Pruebas Unitarias 
+4. Pruebas de Integración 
+5. Enlaces Útiles
 
-##¿Cómo instalar y ejecutar SumApplication?
-Como se indicó en la sección de introducción dicho proyecto se elaboro utilizando la 
-tecnología de SpringBook, el cual es conocido como un famoso framework del lenguaje 
+##Instalación y ejecución
+De acuerdo a la sección anterior, el presente proyecto se elaboró utilizando la
+tecnología de SpringBook, el cual es conocido como un famoso framework del lenguaje
 de programación java [Spring Boot](https://spring.io/projects/spring-boot#overview). Por ende,
-es importante tener instalado previamente lo siguiente: 
+es importante tener instalado previamente lo siguiente:
 
-1. JDK en versión igual o superior a la 11. Leer más. [¿Qué es un JDK](https://www.ibm.com/docs/es/i/7.3?topic=platform-java-development-kit).
-2. Editor de código o IDE de preferencia. [Se recomienda IntelliJ IDEA](https://www.jetbrains.com/es-es/idea/)
+* JDK en versión igual o superior a la 11, [si lo desea puede revisar la 
+documentación oficial de Java](https://www.java.com/es/download/help/windows_manual_download.html). 
+* Editor de código o IDE de preferencia. [Se recomienda IntelliJ IDEA](https://www.jetbrains.com/es-es/idea/)
+
+De igual forma, [la documentación oficial de Spring Boot proporciona una guia de instalación 
+detallada](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started.first-application)
+.Se recomienda revisarla previamente.
 
 Ahora bien, para ejecutar el proyecto siga los pasos dictados a continuación. 
 
-1. Aperture el proyecto en su IDE. 
-2. Inicialice un contenedor Docker previamente con una imagen PostgreSQL de su preferencia. 
-3. Corra el proyecto con la opción RUN de su IDE.
-4. Utilice el navegador para enviar los datos empleando el endpoint preferido. 
+* Aperture el proyecto en su IDE. 
+* Inicialice un contenedor Docker previamente con una imagen PostgreSQL de su preferencia. 
+* Corra el proyecto con la opción RUN de su IDE.
+* Utilice el navegador o un software de preferencia ([Se recomienda Postman](https://www.postman.com/))
+para enviar los datos empleando el endpoint preferido. 
 
-##¿Qué tecnologías y herramientas se utilizaron?
+##Tecnologías Utilizadas
 
-A continuación, se especifican la lista de tecnologías utilizadas para la elaboracion 
-de SumApplication: 
-* HTTP.
-* PostgreSQL.
-* JDBC Template (NamedParameterJdbcTemplate).
-* JUnit (Pruebas unitarias y de integración).
-* Docker.
-* Test Containers (Pruebas unitarias y de integración).
-* Gestos de PostgreSQL PGAdmin 
-(Opcional para consultar el almacenamiento de información).
+* [JDK](https://www.oracle.com/co/java/technologies/javase/javase8-archive-downloads.html): Version 1.8
+* [Maven](https://maven.apache.org/): Version 4
+* [SpringBoot](https://spring.io/projects/spring-boot): Version 2.6.5.
+* [PostgreSQL](https://www.postgresql.org/): Version 12
+* [Docker](https://www.docker.com/): Version 20.10.13
+* [JUnit](https://junit.org/junit5/): Version 5.8.2
+* [Testcontainers](https://www.testcontainers.org/): Version 1.16.3
+
 
 ## Pruebas Unitarias 
-Se realizó un test respectivo para probar la utilización del servicio de suma. Bien
-puede ser ejecutada a través del comando RUN del IDE de preferencia. 
+>"Estos test son responsables de probar una unidad funcional y aislada de código"
+> 
+> *Cleventy*
 
-##Pruebas de Integración 
+Como se especifica anteriormente este tipo de test se encarga de probar el comportamiento
+de una unidad de código, que bien a efectos de la aplicación en Spring Boot puede ser un
+determinado servicio. Ahora bien, para el presente proyecto se realizo una prueba unitaria 
+encargada de corroborar que el servicio de suma este retornando la operación algebráica, dicho 
+test se encuentra ubicación en la siguiente ruta. 
+> ./src/java/service/**SumServiceTest**  
+
+## Pruebas de Integración 
+>"Eson responsables de probar la integración/comunicación entre diferentes unidads funcionales. 
+> Estos tests están bajo la carpeta integration. Para todos estos tests se levanta un
+> API local y se pasa por todas las capas necesarias para el test, probando de esta 
+> manera, a su vez, controlador, servicios, repositorios y cualquier otra lógica 
+> implicada."
+>
+> *Cleventy*
+
 Utilizando la tecnología de JVM se implementó el uso de TestContainers para generar 
 un contenedor docker con una imagen de PostgreSQl (Versión 12). Con fin, de realizar 
-las pruebas ante una base de datos real.
+las pruebas ante una base de datos real. En el caso particular de SumApplication se 
+elaboraron dos pruebas que permiten los siguientes aspectos.
+
+* Validar el resultado optenido del endpoint 
+* Revisar el funcionamiento del repositorio e integración de capas del aplicativo. 
+
+Dichas pruebas se encuentran ubicadas en las rutas expuestas a continuación. 
+> ./src/java/controller/**SumControllerSaveDataTests**
+> 
+> ./src/java/controller/**SumControllerTests**
+
+##Enlaces Útiles
+* [¿Qué es un JDK](https://www.ibm.com/docs/es/i/7.3?topic=platform-java-development-kit).
+* [¿Qué son las pruebas unitarias y de integración?](https://cleventy.com/pruebas-de-unidad-e-integracion-en-un-proyecto-spring-boot/)
+* [¿Cómo instalar Docker?](https://www.docker.com/get-started/)
+
+
 
 &copy; 2022 Ysnaldo J. López H. , Todos los derechos reservados.   
