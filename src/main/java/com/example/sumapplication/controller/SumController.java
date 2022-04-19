@@ -1,7 +1,7 @@
 package com.example.sumapplication.controller;
 
 
-import com.example.sumapplication.models.SumRequestBody;
+import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
 import com.example.sumapplication.service.SumService;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.OPTIONS})
 public class SumController {
-
     @Autowired
     private RequestService requestService;
 

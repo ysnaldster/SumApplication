@@ -1,9 +1,9 @@
 package com.example.sumapplication.repository;
 
 import com.example.sumapplication.interfaces.ISumRequestRepository;
-import com.example.sumapplication.models.SumRequestBody;
+import com.example.sumapplication.mapper.SumRequestMapper;
+import com.example.sumapplication.model.SumRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -30,7 +30,7 @@ public class SumRequestRepository implements ISumRequestRepository {
     public SumRequestBody getDataOfTableRequests(int idRequest) {
         SqlParameterSource namedParameters = new MapSqlParameterSource("idRequest", idRequest);
         return namedParameterJdbcTemplate.queryForObject(
-                "SELECT * FROM REQUESTS WHERE ID_REQUEST = :idRequest", namedParameters, new BeanPropertyRowMapper<>(SumRequestBody.class));
+                "SELECT * FROM REQUESTS WHERE ID_REQUEST = :idRequest", namedParameters, new SumRequestMapper());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.sumapplication.models;
+package com.example.sumapplication.model;
 
 public class SumResult {
     private int sumResult;

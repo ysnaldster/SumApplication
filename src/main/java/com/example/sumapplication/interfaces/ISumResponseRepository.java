@@ -1,6 +1,6 @@
 package com.example.sumapplication.interfaces;
 
-import com.example.sumapplication.models.SumResponseBody;
+import com.example.sumapplication.model.SumResponseBody;
 
 public interface ISumResponseRepository {
 

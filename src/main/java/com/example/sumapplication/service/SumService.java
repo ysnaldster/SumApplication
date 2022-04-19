@@ -1,6 +1,6 @@
 package com.example.sumapplication.service;
 
-import com.example.sumapplication.models.SumResult;
+import com.example.sumapplication.model.SumResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

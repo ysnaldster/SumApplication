@@ -1,8 +1,7 @@
 
-
-#Bienvenido a SumApplication
+# Bienvenido a SumApplication
 ***
-###¿Qué es SumApplication? 
+### ¿Qué es SumApplication? 
 SumApplication es un aplicativo que permite llevar a cabo sumas 
 algebraicas a través de dos dígitos que proporciona el usuario. 
 Dicho resultado obtenido en la operación es almacenado en una base de 
@@ -10,7 +9,7 @@ datos PostgreSQL implementada con un contenedor creado con la tecnología Docker
 esto con la finalidad de que la data procesada sea almacenada en un conjunto 
 de tablas estructuradas.
 
-###¿Por qué fue construido SumApplication? 
+### ¿Por qué fue construido SumApplication? 
 Spring Boot es un módulo que permite realizar aplicaciones de una forma más efectiva 
 usando Spring Framework, de este modo dicha aplicación fue creada utilizando dicha tecnología 
 con la finalidad de aprender y practicar los conceptos básicos de SpringBoot. 
@@ -18,27 +17,27 @@ Aspectos como bien, la infraestructura de capas (controlador, servicio y
 repositorio), elaboración de endpoints, aplicación de bases de datos PostgreSQL, 
 realización de pruebas de unitarias y de integración con módulo JUnit. 
 
-###¿Como se elaboro SumApplication? 
+### ¿Como se elaboro SumApplication? 
 Se optó por la aplicación de la herramienta SpringBoot, con fin de llevar a cabo un 
 aplicativo que cumpla con la tarea de realizar un esquema completo cliente - servidor.
 A través de la creación de endpoints interactivos que permitan sumar dos números ingresados
 por el lado de cliente; para luego ser procesados del lado del servidor, sumándolos e insertándolos
 en una base de datos con el fin de llevar a cabo un registro de cada operación realizada. 
 
-##Tabla de Contenido 
+## Tabla de Contenido
 1. Instalación y ejecución
 2. Tecnologías Utilizadas
 3. Pruebas Unitarias 
 4. Pruebas de Integración 
 5. Enlaces Útiles
 
-##Instalación y ejecución
+## Instalación y ejecución
 De acuerdo a la sección anterior, el presente proyecto se elaboró utilizando la
 tecnología de SpringBook, el cual es conocido como un famoso framework del lenguaje
 de programación java [Spring Boot](https://spring.io/projects/spring-boot#overview). Por ende,
 es importante tener instalado previamente lo siguiente:
 
-* JDK en versión igual o superior a la 11, [si lo desea puede revisar la 
+* JDK en versión 11, [si lo desea puede revisar la 
 documentación oficial de Java](https://www.java.com/es/download/help/windows_manual_download.html). 
 * Editor de código o IDE de preferencia. [Se recomienda IntelliJ IDEA](https://www.jetbrains.com/es-es/idea/)
 
@@ -56,7 +55,7 @@ para enviar los datos empleando el endpoint preferido.
 
 ##Tecnologías Utilizadas
 
-* [JDK](https://www.oracle.com/co/java/technologies/javase/javase8-archive-downloads.html): Version 1.8
+* [JDK](https://www.oracle.com/co/java/technologies/javase/javase8-archive-downloads.html): Version 11
 * [Maven](https://maven.apache.org/): Version 4
 * [SpringBoot](https://spring.io/projects/spring-boot): Version 2.6.5.
 * [PostgreSQL](https://www.postgresql.org/): Version 12
@@ -99,7 +98,7 @@ Dichas pruebas se encuentran ubicadas en las rutas expuestas a continuación.
 > 
 > ./src/java/controller/**SumControllerTests**
 
-##Enlaces Útiles
+## Enlaces Útiles
 * [¿Qué es un JDK](https://www.ibm.com/docs/es/i/7.3?topic=platform-java-development-kit).
 * [¿Qué son las pruebas unitarias y de integración?](https://cleventy.com/pruebas-de-unidad-e-integracion-en-un-proyecto-spring-boot/)
 * [¿Cómo instalar Docker?](https://www.docker.com/get-started/)

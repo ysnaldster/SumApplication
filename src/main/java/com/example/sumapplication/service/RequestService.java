@@ -1,6 +1,6 @@
 package com.example.sumapplication.service;
 
-import com.example.sumapplication.models.SumRequestBody;
+import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.repository.SumRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

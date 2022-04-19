@@ -3,26 +3,28 @@ package com.example.sumapplication.containers;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-public abstract class ConfigurationContainer  {
+public abstract class ConfigurationContainer {
 
-    private static final String postgresImage = "postgres:12";
-    private static final String dataBaseName = "testSumApplication";
-    private static final String userName = "user";
-    private static final String passwordDB = "password123";
-    private static final String initScript = "schema.sql";
+    private static final String POSTGRES_IMAGE = "postgres:12";
+    private static final String DATA_BASE_NAME = "testSumApplication";
+    private static final String USER_NAME = "user";
+    private static final String PASSWORD_DB = "password123";
+    private static final String INIT_SCRIPT = "schema.sql";
 
-    public static PostgreSQLContainer postgresDB = (PostgreSQLContainer) new PostgreSQLContainer
-            (postgresImage)
-            .withDatabaseName(dataBaseName)
-            .withUsername(userName)
-            .withPassword(passwordDB)
-            .withInitScript(initScript);
+    public static PostgreSQLContainer<?> postgresDB = new PostgreSQLContainer<>
+            (POSTGRES_IMAGE)
+            .withDatabaseName(DATA_BASE_NAME)
+            .withUsername(USER_NAME)
+            .withPassword(PASSWORD_DB)
+            .withInitScript(INIT_SCRIPT);
 
     static {
-        postgresDB.start();
+        if (!postgresDB.isCreated() && !postgresDB.isRunning()) {
+            postgresDB.start();
+            System.out.println("El contenedor esta creado y Corriendo");
+        }
+
     }
 
     @DynamicPropertySource
@@ -32,8 +34,4 @@ public abstract class ConfigurationContainer  {
         registry.add("spring.datasource.password", postgresDB::getPassword);
 
     }
-
-
-
 }
-
