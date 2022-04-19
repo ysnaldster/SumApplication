@@ -31,7 +31,30 @@ en una base de datos con el fin de llevar a cabo un registro de cada operación 
 4. Pruebas de Integración 
 5. Enlaces Útiles
 
-## Instalación y ejecución
+## Arranque de SumApplication
+Para inicializar SumApplication debe de contarse con los siguientes requerimientos previos: 
+
+* JDK: Versión 11. 
+* Apache Maven: Versión > 3.8.5.
+* Docker: Version 20.10.13 o superior. 
+
+
+Por otro lado, el proyecto cuenta con un archivo [.jar](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html) 
+ejecutable por terminal. Para ello, debe **desplazarse a la ubicación en donde se encuentra guardado el proyecto,** 
+y luego emplear el comando expuesto a continuación:
+
+    java -jar .\target\sumApplication-0.0.1-SNAPSHOT.jar
+
+De igual forma, SumApplication cuenta con una sección de testing compuesta por pruebas, unitarias y de integración que bien,
+permiten evaluar el comportamiento del aplicativo previamente a su ejecución principal, estos pueden ser
+ejecutados a través del siguiente comando:
+
+    mvn test 
+
+Dicho comando, tiene la función principal de levantar la aplicación y ejecutar **todos** los testing respectivos
+encontrados en la carpeta `.\test` del proyecto.
+
+## Instalación y ejecución en IDE
 De acuerdo a la sección anterior, el presente proyecto se elaboró utilizando la
 tecnología de SpringBook, el cual es conocido como un famoso framework del lenguaje
 de programación java [Spring Boot](https://spring.io/projects/spring-boot#overview). Por ende,
@@ -53,7 +76,7 @@ Ahora bien, para ejecutar el proyecto siga los pasos dictados a continuación.
 * Utilice el navegador o un software de preferencia ([Se recomienda Postman](https://www.postman.com/))
 para enviar los datos empleando el endpoint preferido. 
 
-##Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 * [JDK](https://www.oracle.com/co/java/technologies/javase/javase8-archive-downloads.html): Version 11
 * [Maven](https://maven.apache.org/): Version 4
@@ -102,7 +125,6 @@ Dichas pruebas se encuentran ubicadas en las rutas expuestas a continuación.
 * [¿Qué es un JDK](https://www.ibm.com/docs/es/i/7.3?topic=platform-java-development-kit).
 * [¿Qué son las pruebas unitarias y de integración?](https://cleventy.com/pruebas-de-unidad-e-integracion-en-un-proyecto-spring-boot/)
 * [¿Cómo instalar Docker?](https://www.docker.com/get-started/)
-
 
 
 &copy; 2022 Ysnaldo J. López H. , Todos los derechos reservados.   
