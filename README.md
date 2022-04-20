@@ -36,53 +36,39 @@ en una base de datos con el fin de llevar a cabo un registro de cada operación 
 4. Pruebas de Integración
 5. Enlaces Útiles
 
-## Arranque de SumApplication
+## 🧪 Ejecución de Pruebas
 
-### Sin Maven
+SumApplication cuenta con una sección de testing compuesta por pruebas, unitarias y de integración que bien, permiten evaluar el comportamiento del aplicativo previamente a su ejecución principal, para el corrido de estas se requiere contar con la siguiente instalación: 
 
-Para inicializar SumApplication, se recomienda contar previamente con la instalación de `Maven Apache`
-en versión `3.8.5 o superior`. Sin embargo, en caso de que no cuente con `Maven` instalado,
-ejecute lo siguiente:
+* JDK: `Versión 11 o superior`.
+* [Maven Apache](https://maven.apache.org/download.cgi) `Versión 3.8.5 o superior`
 
-* Instale JDK: Versión 11.
-* Docker: Version 20.10.13 o superior. (Revisar depedencia de docker, PREGUNTAR)
-* Configure la variable de entorno del sistema operativo de preferencia, con la ruta en donde se encuentre
-  instalado SpringBoot.
+Adicionalmente, se necesita la configuración de las [variables de entorno del sistema operativo](https://programmerclick.com/article/27401862932/) con Maven instalado. 
 
-  `Ejemplo: C:\Program Files\Spring5\jdk-17.0.2\bin`
-
-* Ubiquese en la dirección en donde se encuentra el proyecto `SumApplication`.
-* Ejecute el siguiente comando de [`Maven Wrapper`](https://github.com/takari/maven-wrapper).
-
-
-    .\mvnw.cmd package
-
-El comando anterior permite configurar el package de `Maven` para la ejecución del proyecto. Completando
-satisfactoriamente las instrucciones, contara con el entorno Maven preparado para su ejecución; ahora para
-ejecutar el proyecto ejecute el siguiente comando:
-
-    java -jar .\target\sumApplication-0.0.1-SNAPSHOT.jar
-
-### Con Maven
-
-El proyecto cuenta con un
-archivo [.jar](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)
-ejecutable por terminal. Caso aplicable cuando se tiene previamente instalado  `Maven` en el SO.
-Ahora bien, para la ejecución del proyecto debe **desplazarse a la ubicación en donde se
-encuentra guardado el proyecto,**
-y luego emplear el comando expuesto a continuación:
-
-    java -jar .\target\sumApplication-0.0.1-SNAPSHOT.jar
-
-De igual forma, SumApplication cuenta con una sección de testing compuesta por pruebas, unitarias y de integración que
-bien,
-permiten evaluar el comportamiento del aplicativo previamente a su ejecución principal, para su corrido debe
-de contarse privamente con `Maven` en el SO. Estos pueden ser ejecutados a través del siguiente comando:
+Ahora bien, para correr los distintos test, ejecute el comando a continuación: 
 
     mvn test 
 
-Dicho comando, tiene la función principal de levantar la aplicación y ejecutar **todos** los testing respectivos
+El comando anterior, tiene la función principal de levantar la aplicación y ejecutar **todos** los testing respectivos
 encontrados en la carpeta `.\test` del proyecto.
+
+## 📦 Creación y ejecución de Package Maven
+
+Para la creación previa de un [package de Maven](https://www.vogella.com/tutorials/ApacheMaven/article.html#:~:text=To%20build%20a%20Maven%20project,as%20parameter%20to%20this%20command.) generativo de un archivo **.jar** ejecutable del aplicativo SumAplicación. sin embargo, se debe contar previamente con lo siguiente: 
+
+* JDK: `Versión 11 o superior`. 
+
+Ahora bien para la creación del package utilizando **Maven**, es necesario la configuración de las [variables de entorno del sistema operativo](https://programmerclick.com/article/27401862932/) con **Maven**, considere que la variable debe ser definida tomando en cuenta el directorio en donde se encuentra instalado el JDK. 
+
+  `Ejemplo: C:\Program Files\Spring5\jdk-17.0.2\bin`
+  
+Posteriormente, ejecute el siguiente comando de [`Maven Wrapper`](https://github.com/takari/maven-wrapper) en el caso de `Windows SO` para la creación del package. 
+
+    .\mvnw.cmd package 
+
+Completando satisfactoriamente la creación del package, se procede a ejecutarlo. Para ello, es necesario ubicarse en la carpeta en donde fue creado el package de **Maven** del aplicativo; para bien ejecutar:
+
+    java -jar .\target\sumApplication-0.0.1-SNAPSHOT.jar
 
 ## ⏲️Instalación y ejecución en IDE
 
