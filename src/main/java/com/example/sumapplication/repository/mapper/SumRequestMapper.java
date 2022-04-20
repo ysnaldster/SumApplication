@@ -1,4 +1,4 @@
-package com.example.sumapplication.mapper;
+package com.example.sumapplication.repository.mapper;
 
 import com.example.sumapplication.model.SumRequestBody;
 import org.springframework.jdbc.core.RowMapper;

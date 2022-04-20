@@ -19,15 +19,15 @@ public class SumServiceTest {
 
     @Test
     public void testSum_GivenFourAndFive_ShouldReturnNine() throws JsonProcessingException {
-        // Arrange -> Se preparan los datos necesarios para la prueba.
+        // Arrange
         int numberOne = 4;
         int numberTwo = 5;
         int resultExpected = 9;
         final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
         SumResult sumResult = new SumResult(resultExpected);
-        // Act -> Se ejecuta que se desea probar.
+        // Act
         ResponseEntity result = sumService.operationSum(numberOne, numberTwo);
-        // Assert -> Verificación del resultado con lo deseado.
+        // Assert
         Assertions.assertEquals(OBJECT_MAPPER.writeValueAsString(sumResult),
                 OBJECT_MAPPER.writeValueAsString(result.getBody()));
     }

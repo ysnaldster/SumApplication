@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SumControllerTests extends ConfigurationContainer {
 
@@ -38,31 +37,31 @@ public class SumControllerTests extends ConfigurationContainer {
 
     @Test
     public void testGetStatusCodeRequestParams_GivenNumberOneIsIntegerAndNumberTwoIsString_Should400BadRequest() throws Exception {
-        // Arrange -> Se preparan los datos necesarios para la prueba.
+        // Arrange
         int numberOne = 500;
         String numberTwo = "a";
         String request = String.format("/sums/requestParam.postSum?numberOne=%s&numberTwo=%s", numberOne, numberTwo);
-        // Act -> Se ejecuta que se desea probar.
+        // Act
         var response = restTemplate.postForEntity(String.format(HOST, port, request), null, String.class);
-        // Assert -> Verificación del resultado con lo deseado.
+        // Assert
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
     public void testGetStatusCodePathVariable_GivenNumberOneIsIntegerAndNumberTwoIsString_Should400BadRequest() throws Exception {
-        // Arrange -> Se preparan los datos necesarios para la prueba.
+        // Arrange
         int numberOne = 100;
         String numberTwo = "H";
         String request = String.format("/sums/pathVariable.postSum/%s/%s", numberOne, numberTwo);
-        // Act -> Se ejecuta que se desea probar.
+        // Act
         var response = restTemplate.postForEntity(String.format(HOST, port, request), null, String.class);
-        // Assert -> Verificación del resultado con lo deseado.
+        // Assert
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
     public void testGetStatusCodeRequestBody_GivenNumberOneIsIntegerAndNumberTwoIsString_Should400BadRequest() throws Exception {
-        // Arrange -> Se preparan los datos necesarios para la prueba.
+        // Arrange
         int numberOne = 1000;
         String numberTwo = "K";
         String request = "/sums/requestBody.postSum";
@@ -70,45 +69,45 @@ public class SumControllerTests extends ConfigurationContainer {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> requestEntity = new HttpEntity<>(jsonExpected, headers);
-        // Act -> Se ejecuta que se desea probar.
+        // Act
         var response = restTemplate.postForEntity(String.format(HOST, port, request), requestEntity, String.class);
-        // Assert -> Verificación del resultado con lo deseado.
+        // Assert
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
     public void testGetResultSumRequestParam_GivenTeenAndFifteen_ShouldReturnTwentyFive() throws Exception {
-        // Arrange -> Se preparan los datos necesarios para la prueba.
+        // Arrange
         int numberOne = 10;
         int numberTwo = 15;
         String requestUrlRequestParams = String.format("/sums/requestParam.postSum?numberOne=%s&numberTwo=%s", numberOne, numberTwo);
         SumResult sumResult = new SumResult(numberOne + numberTwo);
         String sumResultAsString = OBJECT_MAPPER.writeValueAsString(sumResult);
-        // Act -> Se ejecuta que se desea probar.
+        // Act
         var response = restTemplate.postForEntity(String.format(HOST, port, requestUrlRequestParams), null, String.class);
-        // Assert -> Verificación del resultado con lo deseado.
+        // Assert
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).contains(sumResultAsString);
     }
 
     @Test
     public void testGetResultSumPathVariable_GivenFiveAndTeen_ShouldReturnFifteen() throws Exception {
-        // Arrange -> Se preparan los datos necesarios para la prueba.
+        // Arrange
         int numberOne = 5;
         int numberTwo = 10;
         SumResult sumResult = new SumResult(numberOne + numberTwo);
         String sumResultAsString = OBJECT_MAPPER.writeValueAsString(sumResult);
         String request = String.format("/sums/pathVariable.postSum/%s/%s", numberOne, numberTwo);
-        // Act -> Se ejecuta que se desea probar.
+        // Act
         var response = restTemplate.postForEntity(String.format(HOST, port, request), null, String.class);
-        // Assert -> Verificación del resultado con lo deseado.
+        // Assert
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).contains(sumResultAsString);
     }
 
     @Test
     public void testGetResultSumRequestBody_GivenElevenAndNine_ShouldReturnTwenty() throws Exception {
-        // Arrange -> Se preparan los datos necesarios para la prueba.
+        // Arrange
         int numberOne = 11;
         int numberTwo = 9;
         SumResult sumResult = new SumResult(numberOne + numberTwo);
@@ -118,9 +117,9 @@ public class SumControllerTests extends ConfigurationContainer {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> requestEntity = new HttpEntity(jsonExpected, headers);
-        // Act -> Se ejecuta que se desea probar.
+        // Act
         var response = restTemplate.postForEntity(String.format(HOST, port, request), requestEntity, String.class);
-        // Assert -> Verificación del resultado con lo deseado.
+        // Assert
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).contains(sumResultAsString);
     }

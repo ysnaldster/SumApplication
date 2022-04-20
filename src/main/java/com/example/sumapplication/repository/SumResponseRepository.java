@@ -1,7 +1,7 @@
 package com.example.sumapplication.repository;
 
 import com.example.sumapplication.interfaces.ISumResponseRepository;
-import com.example.sumapplication.mapper.SumResponseMapper;
+import com.example.sumapplication.repository.mapper.SumResponseMapper;
 import com.example.sumapplication.model.SumResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

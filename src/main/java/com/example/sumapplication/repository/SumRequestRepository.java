@@ -1,7 +1,7 @@
 package com.example.sumapplication.repository;
 
 import com.example.sumapplication.interfaces.ISumRequestRepository;
-import com.example.sumapplication.mapper.SumRequestMapper;
+import com.example.sumapplication.repository.mapper.SumRequestMapper;
 import com.example.sumapplication.model.SumRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;

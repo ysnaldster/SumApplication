@@ -22,7 +22,7 @@ public abstract class ConfigurationContainer {
     static {
         if (!postgresDB.isCreated() && !postgresDB.isRunning()) {
             postgresDB.start();
-            System.out.println("El contenedor esta creado y Corriendo");
+            System.out.println("Container Started!!");
         }
 
     }
