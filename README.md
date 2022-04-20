@@ -1,8 +1,8 @@
-# 🖥️Bienvenido a SumApplication
+# 🖥️ Bienvenido a SumApplication
 
 ***
 
-### :arrow_right:¿Qué es SumApplication?
+### :arrow_right: ¿Qué es SumApplication?
 
 SumApplication es un aplicativo que permite llevar a cabo sumas
 algebraicas a través de dos dígitos que proporciona el usuario.
@@ -11,7 +11,7 @@ datos PostgreSQL implementada con un contenedor creado con la tecnología Docker
 esto con la finalidad de que la data procesada sea almacenada en un conjunto
 de tablas estructuradas.
 
-### 🤷‍♀️¿Por qué fue construido SumApplication?
+### 🤷‍♀️ ¿Por qué fue construido SumApplication?
 
 Spring Boot es un módulo que permite realizar aplicaciones de una forma más efectiva
 usando Spring Framework, de este modo dicha aplicación fue creada utilizando dicha tecnología
@@ -20,7 +20,7 @@ Aspectos como bien, la infraestructura de capas (controlador, servicio y
 repositorio), elaboración de endpoints, aplicación de bases de datos PostgreSQL,
 realización de pruebas de unitarias y de integración con módulo JUnit.
 
-### 😉¿Como se elaboro SumApplication?
+### 😉 ¿Como se elaboro SumApplication?
 
 Se optó por la aplicación de la herramienta SpringBoot, con fin de llevar a cabo un
 aplicativo que cumpla con la tarea de realizar un esquema completo cliente - servidor.
@@ -38,7 +38,7 @@ en una base de datos con el fin de llevar a cabo un registro de cada operación 
 
 ## 🧪 Ejecución de Pruebas
 
-SumApplication cuenta con una sección de testing compuesta por pruebas, unitarias y de integración que bien, permiten evaluar el comportamiento del aplicativo previamente a su ejecución principal, para el corrido de estas se requiere contar con la siguiente instalación: 
+SumApplication cuenta con una sección de testing compuesta por pruebas, unitarias y de integración que bien, estas permiten evaluar el comportamiento del aplicativo previamente a su ejecución principal, para el corrido de estas se requiere contar con la siguiente instalación: 
 
 * JDK: `Versión 11 o superior`.
 * [Maven Apache](https://maven.apache.org/download.cgi) `Versión 3.8.5 o superior`
@@ -66,7 +66,7 @@ Posteriormente, ejecute el siguiente comando de [`Maven Wrapper`](https://github
 
     .\mvnw.cmd package 
 
-Completando satisfactoriamente la creación del package, se procede a ejecutarlo. Para ello, es necesario ubicarse en la carpeta en donde fue creado el package de **Maven** del aplicativo; para bien ejecutar:
+Completando satisfactoriamente la creación del package, se procede a ejecutarlo. Para ello, es necesario ubicarse en la carpeta en donde fue creado el package de **Maven** del aplicativo, y luego ejecute lo siguiente:
 
     java -jar .\target\sumApplication-0.0.1-SNAPSHOT.jar
 
@@ -103,44 +103,8 @@ Ahora bien, para ejecutar el proyecto siga los pasos dictados a continuación.
 * [JUnit](https://junit.org/junit5/): Version 5.8.2
 * [Testcontainers](https://www.testcontainers.org/): Version 1.16.3
 
-## Pruebas Unitarias
-
-> "Estos test son responsables de probar una unidad funcional y aislada de código"
->
-> *Cleventy*
-
-Como se especifica anteriormente este tipo de test se encarga de probar el comportamiento
-de una unidad de código, que bien a efectos de la aplicación en Spring Boot puede ser un
-determinado servicio. Ahora bien, para el presente proyecto se realizo una prueba unitaria
-encargada de corroborar que el servicio de suma este retornando la operación algebráica, dicho
-test se encuentra ubicación en la siguiente ruta.
-> ./src/java/service/**SumServiceTest**
-
-## Pruebas de Integración
-
-> "Eson responsables de probar la integración/comunicación entre diferentes unidads funcionales.
-> Estos tests están bajo la carpeta integration. Para todos estos tests se levanta un
-> API local y se pasa por todas las capas necesarias para el test, probando de esta
-> manera, a su vez, controlador, servicios, repositorios y cualquier otra lógica
-> implicada."
->
-> *Cleventy*
-
-Utilizando la tecnología de JVM se implementó el uso de TestContainers para generar
-un contenedor docker con una imagen de PostgreSQl (Versión 12). Con fin, de realizar
-las pruebas ante una base de datos real. En el caso particular de SumApplication se
-elaboraron dos pruebas que permiten los siguientes aspectos.
-
-* Validar el resultado optenido del endpoint
-* Revisar el funcionamiento del repositorio e integración de capas del aplicativo.
-
-Dichas pruebas se encuentran ubicadas en las rutas expuestas a continuación.
-> ./src/java/controller/**SumControllerSaveDataTests**
->
-> ./src/java/controller/**SumControllerTests**
-
 ## :page_with_curl: Enlaces Útiles
-
+ 
 * [¿Qué es un JDK](https://www.ibm.com/docs/es/i/7.3?topic=platform-java-development-kit).
 * [¿Qué son las pruebas unitarias y de integración?](https://cleventy.com/pruebas-de-unidad-e-integracion-en-un-proyecto-spring-boot/)
 * [¿Cómo instalar Docker?](https://www.docker.com/get-started/)
