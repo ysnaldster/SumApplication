@@ -25,7 +25,7 @@ public class SumController {
     @PostMapping(value = "/requestParam.postSum", produces = "application/json")
     public ResponseEntity postSumWithRequestParam(@RequestParam int numberOne, @RequestParam int numberTwo) {
         String endpoint = "postSumWithRequestParam";
-        requestService.setNumbersWithParametersAndPositionsURL(numberOne, numberTwo); //Debe retornar un objeto response
+        requestService.setNumbersWithParametersAndPositionsURL(numberOne, numberTwo);
         responseService.setResponseWithParametersAndPositionsURL(endpoint, numberOne, numberTwo);
         return sumService.operationSum(numberOne, numberTwo);
     }
@@ -38,11 +38,11 @@ public class SumController {
         return sumService.operationSum(numberOne, numberTwo);
     }
 
-    @PostMapping(value = "/requestBody.postSum", produces = "application/json")
+/*    @PostMapping(value = "/requestBody.postSum", produces = "application/json")
     public ResponseEntity postSumWithRequestBody(@RequestBody SumRequestBody sumRequestBody) {
         requestService.setNumbersWithBodyRequest(sumRequestBody);
         responseService.setResponseWithBodyRequest(sumRequestBody);
         return sumService.operationSum(sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());
-    }
+    }*/
 
 }

@@ -2,6 +2,7 @@ package com.example.sumapplication.service;
 
 import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.repository.SumRequestRepository;
+import com.example.sumapplication.repository.SumResponseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,19 @@ public class RequestService {
     @Autowired
     private SumRequestRepository sumRequestRepository;
 
+    @Autowired
+    private SumResponseRepository sumResponseRepository;
+
     public void setNumbersWithParametersAndPositionsURL(int numberOne, int numberTwo){
-        sumRequestRepository.saveRequestNumbers(numberOne, numberTwo);
+        SumRequestBody sumRequestBody = new SumRequestBody();
+        sumRequestBody.setNumberOne(numberOne);
+        sumRequestBody.setNumberTwo(numberTwo);
+        sumRequestRepository.saveRequestNumbers(sumRequestBody);
     }
 
-    public void setNumbersWithBodyRequest(SumRequestBody sumRequestBody) {
+/*    public void setNumbersWithBodyRequest(SumRequestBody sumRequestBody) {
         sumRequestRepository.saveRequestNumbers(sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());
-    }
+    }*/
 
     public SumRequestBody getObjectForIdRequest(int idRequest){
         return sumRequestRepository.getDataOfTableRequests(idRequest);

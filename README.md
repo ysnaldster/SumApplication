@@ -52,7 +52,7 @@ Ahora bien, para correr los distintos test, ejecute el comando a continuación:
 El comando anterior, tiene la función principal de levantar la aplicación y ejecutar **todos** los testing respectivos
 encontrados en la carpeta `.\test` del proyecto.
 
-## 📦 Creación y ejecución de Package Maven
+## 📦 Creación y ejecución de Package con Maven
 
 Para la creación previa de un [package de Maven](https://www.vogella.com/tutorials/ApacheMaven/article.html#:~:text=To%20build%20a%20Maven%20project,as%20parameter%20to%20this%20command.) generativo de un archivo **.jar** ejecutable del aplicativo SumAplicación. sin embargo, se debe contar previamente con lo siguiente: 
 

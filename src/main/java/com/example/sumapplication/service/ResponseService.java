@@ -13,6 +13,9 @@ public class ResponseService {
     private SumResponseRepository sumResponseRepository;
 
     public void setResponseWithParametersAndPositionsURL(String endpoint, int numberOne, int numberTwo){
+        SumResponseBody sumResponseBody = new SumResponseBody();
+        sumResponseBody.setEndpoint(endpoint);
+
         sumResponseRepository.saveResponseSum(endpoint, numberOne + numberTwo);
     }
 

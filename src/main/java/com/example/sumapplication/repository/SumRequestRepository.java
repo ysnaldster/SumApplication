@@ -17,11 +17,8 @@ public class SumRequestRepository implements ISumRequestRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public void saveRequestNumbers(int numberOne, int numberTwo) {
+    public void saveRequestNumbers(SumRequestBody sumRequestBody) {
         String sql = "INSERT INTO REQUESTS (number_one, number_two) VALUES (:numberOne, :numberTwo)";
-        SumRequestBody sumRequestBody = new SumRequestBody();
-        sumRequestBody.setNumberOne(numberOne);
-        sumRequestBody.setNumberTwo(numberTwo);
         BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(sumRequestBody);
         namedParameterJdbcTemplate.update(sql, paramSource);
     }
