@@ -12,11 +12,8 @@ public class ResponseService {
     @Autowired
     private SumResponseRepository sumResponseRepository;
 
-    public void setResponseWithParametersAndPositionsURL(String endpoint, int numberOne, int numberTwo){
-        SumResponseBody sumResponseBody = new SumResponseBody();
-        sumResponseBody.setEndpoint(endpoint);
-
-        sumResponseRepository.saveResponseSum(endpoint, numberOne + numberTwo);
+    public void setResponseWithParametersAndPositionsURL(String endpoint, SumRequestBody sumRequestBody) {
+        sumResponseRepository.saveResponseSum(endpoint, sumRequestBody);
     }
 
     public void setResponseWithBodyRequest(SumRequestBody sumRequestBody) {
@@ -24,10 +21,9 @@ public class ResponseService {
         SumResponseBody sumResponseBody = new SumResponseBody();
         sumResponseBody.setEndpoint(endpoint);
         sumResponseBody.setResultSum(sumRequestBody.getNumberOne() + sumRequestBody.getNumberTwo());
-        sumResponseRepository.saveResponseSum(sumResponseBody.getEndpoint(), sumResponseBody.getResultSum());
     }
 
-    public SumResponseBody getObjectForIdResponse(int idResponse){
+    public SumResponseBody getObjectForIdResponse(int idResponse) {
         return sumResponseRepository.getDataOfTableResponses(idResponse);
     }
 

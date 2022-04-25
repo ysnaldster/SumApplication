@@ -3,6 +3,7 @@ package com.example.sumapplication.containers;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 
 public abstract class ConfigurationContainer {
 
@@ -17,7 +18,10 @@ public abstract class ConfigurationContainer {
             .withDatabaseName(DATA_BASE_NAME)
             .withUsername(USER_NAME)
             .withPassword(PASSWORD_DB)
-            .withInitScript(INIT_SCRIPT);
+            .withInitScript(INIT_SCRIPT)
+            .waitingFor(
+                    Wait.forLogMessage(".*Success. You can now start the database server using.*", 1)
+            );
 
     static {
         if (!postgresDB.isCreated() && !postgresDB.isRunning()) {
@@ -26,7 +30,7 @@ public abstract class ConfigurationContainer {
         }
 
     }
-
+    //Success. You can now start the database server using
     @DynamicPropertySource
     public static void properties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", postgresDB::getJdbcUrl);

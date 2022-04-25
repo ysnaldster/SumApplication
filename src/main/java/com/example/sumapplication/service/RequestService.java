@@ -2,9 +2,10 @@ package com.example.sumapplication.service;
 
 import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.repository.SumRequestRepository;
-import com.example.sumapplication.repository.SumResponseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.SQLException;
 
 @Service
 public class RequestService {
@@ -13,20 +14,20 @@ public class RequestService {
     private SumRequestRepository sumRequestRepository;
 
     @Autowired
-    private SumResponseRepository sumResponseRepository;
+    ResponseService responseService;
 
-    public void setNumbersWithParametersAndPositionsURL(int numberOne, int numberTwo){
-        SumRequestBody sumRequestBody = new SumRequestBody();
-        sumRequestBody.setNumberOne(numberOne);
-        sumRequestBody.setNumberTwo(numberTwo);
-        sumRequestRepository.saveRequestNumbers(sumRequestBody);
+    public void setNumbersWithParametersAndPositionsURL(String endpoint, int numberOne, int numberTwo) throws SQLException {
+        SumRequestBody sumRequestBody = sumRequestRepository.saveRequestNumbers(endpoint, numberOne, numberTwo);
+        responseService.setResponseWithParametersAndPositionsURL(endpoint, sumRequestBody);
     }
 
-/*    public void setNumbersWithBodyRequest(SumRequestBody sumRequestBody) {
-        sumRequestRepository.saveRequestNumbers(sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());
-    }*/
+    public void setNumbersWithBodyRequest(String endpoint, SumRequestBody sumRequestBody) throws SQLException {
+        SumRequestBody request = sumRequestRepository.saveRequestNumbers(endpoint, sumRequestBody.getNumberOne(),
+                sumRequestBody.getNumberTwo());
+        responseService.setResponseWithParametersAndPositionsURL(endpoint, request);
+    }
 
-    public SumRequestBody getObjectForIdRequest(int idRequest){
+    public SumRequestBody getObjectForIdRequest(int idRequest) {
         return sumRequestRepository.getDataOfTableRequests(idRequest);
     }
 

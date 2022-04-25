@@ -1,8 +1,9 @@
 package com.example.sumapplication.repository;
 
 import com.example.sumapplication.interfaces.ISumResponseRepository;
-import com.example.sumapplication.repository.mapper.SumResponseMapper;
+import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.model.SumResponseBody;
+import com.example.sumapplication.repository.mapper.SumResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -16,18 +17,13 @@ public class SumResponseRepository implements ISumResponseRepository {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
     @Override
-    public void saveResponseSum(String endpoint, int resultSum) {
-        String sql2 = "SELECT ID_REQUEST FROM REQUESTS ORDER BY ID_REQUEST DESC LIMIT 1";
-        int idRequestFk = jdbcTemplate.queryForObject(sql2, Integer.class);
-        String sql = "INSERT INTO RESPONSES (id_request_fk, endpoint, result_sum) VALUES (:idRequestFk, :endpoint, :resultSum)";
+    public void saveResponseSum(String endpoint, SumRequestBody sumRequestBody) {
         SumResponseBody responseBody = new SumResponseBody();
-        responseBody.setIdRequestFk(idRequestFk);
+        responseBody.setIdRequestFk(sumRequestBody.getIdRequest());
         responseBody.setEndpoint(endpoint);
-        responseBody.setResultSum(resultSum);
+        responseBody.setResultSum(sumRequestBody.getNumberOne() + sumRequestBody.getNumberTwo());
+        String sql = "INSERT INTO RESPONSES (id_request_fk, endpoint, result_sum) VALUES (:idRequestFk, :endpoint, :resultSum)";
         BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(responseBody);
         namedParameterJdbcTemplate.update(sql, paramSource);
     }
