@@ -3,7 +3,8 @@ package com.example.sumapplication.model;
 public class SumResult {
     private int sumResult;
 
-    public SumResult(){}
+    public SumResult() {
+    }
 
     public SumResult(int sumResult) {
         this.sumResult = sumResult;

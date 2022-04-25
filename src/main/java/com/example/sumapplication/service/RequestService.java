@@ -5,23 +5,23 @@ import com.example.sumapplication.repository.SumRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-
 @Service
 public class RequestService {
 
-    @Autowired
-    private SumRequestRepository sumRequestRepository;
+    public RequestService(SumRequestRepository sumRequestRepository, ResponseService responseService) {
+        this.sumRequestRepository = sumRequestRepository;
+        this.responseService = responseService;
+    }
 
-    @Autowired
-    ResponseService responseService;
+    private final SumRequestRepository sumRequestRepository;
+    private final ResponseService responseService;
 
-    public void setNumbersWithParametersAndPositionsURL(String endpoint, int numberOne, int numberTwo) throws SQLException {
+    public void setNumbersWithParametersAndPositionsURL(String endpoint, int numberOne, int numberTwo) {
         SumRequestBody sumRequestBody = sumRequestRepository.saveRequestNumbers(endpoint, numberOne, numberTwo);
         responseService.setResponseWithParametersAndPositionsURL(endpoint, sumRequestBody);
     }
 
-    public void setNumbersWithBodyRequest(String endpoint, SumRequestBody sumRequestBody) throws SQLException {
+    public void setNumbersWithBodyRequest(String endpoint, SumRequestBody sumRequestBody) {
         SumRequestBody request = sumRequestRepository.saveRequestNumbers(endpoint, sumRequestBody.getNumberOne(),
                 sumRequestBody.getNumberTwo());
         responseService.setResponseWithParametersAndPositionsURL(endpoint, request);

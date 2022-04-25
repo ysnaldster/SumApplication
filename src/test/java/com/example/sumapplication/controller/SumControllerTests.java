@@ -2,35 +2,30 @@ package com.example.sumapplication.controller;
 
 import com.example.sumapplication.containers.ConfigurationContainer;
 import com.example.sumapplication.model.SumResult;
-import com.example.sumapplication.service.RequestService;
-import com.example.sumapplication.service.ResponseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@EnableCaching
 public class SumControllerTests extends ConfigurationContainer {
 
     @LocalServerPort
     private int port;
 
     @Autowired
-    RequestService requestService;
-
-    @Autowired
     private TestRestTemplate restTemplate;
-
-    @Autowired
-    ResponseService responseService;
 
     final String HOST = "http://localhost:%s%s";
     final ObjectMapper OBJECT_MAPPER = new ObjectMapper();

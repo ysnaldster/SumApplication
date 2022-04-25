@@ -5,7 +5,7 @@ import com.example.sumapplication.model.SumResponseBody;
 
 public interface ISumResponseRepository {
 
-    void saveResponseSum(String endpoint , SumRequestBody sumRequestBody);
+    void saveResponseSum(String endpoint, SumRequestBody sumRequestBody);
 
     SumResponseBody getDataOfTableResponses(int idResponse);
 

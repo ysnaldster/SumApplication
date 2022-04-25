@@ -7,37 +7,38 @@ import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@EnableCaching
 public class SumControllerSaveDataTests extends ConfigurationContainer {
 
     @LocalServerPort
     private int port;
 
     @Autowired
-    RequestService requestService;
+    private RequestService requestService;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Autowired
-    ResponseService responseService;
+    private ResponseService responseService;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     final String HOST = "http://localhost:%s%s";
     final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     final int WANTED_ID = 1;
-
-    @Autowired
-    JdbcTemplate jdbcTemplate;
 
     @AfterEach
     public void tearDown() {

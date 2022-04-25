@@ -34,7 +34,8 @@ en una base de datos con el fin de llevar a cabo un registro de cada operación 
 2. Tecnologías Utilizadas
 3. Pruebas Unitarias
 4. Pruebas de Integración
-5. Enlaces Útiles
+5. Diagramas 
+6. Enlaces Útiles
 
 ## 🧪 Ejecución de Pruebas
 
@@ -102,6 +103,18 @@ Ahora bien, para ejecutar el proyecto siga los pasos dictados a continuación.
 * [Docker](https://www.docker.com/): Version 20.10.13
 * [JUnit](https://junit.org/junit5/): Version 5.8.2
 * [Testcontainers](https://www.testcontainers.org/): Version 1.16.3
+
+## 🔀 Diagramas 
+
+### Entidad Relación 
+Fundamentado en la construcción de los diagramas de esta naturaleza, se realizó un esquemático correspondiente a la base datos PostgreSQL, creada para el esquema de tablas request y responses del aplicativo. 
+
+![EntityRelacionshipDiagram](https://i.ibb.co/hm0QStr/Sum-Application-Diagrams-drawio-1.jpg)
+
+### Arquitectura de Capas 
+Mucha de las aplicaciones realizadas en SpringBoot optan por la utilización de la arquitectura de capas. La misma fue aplicada en sumApplication para construir los distintos modulos, paquetes, clases y demás; que bien permiten que el aplicativo funcione de una manera fluida, estructura y ordenada. 
+
+![Image2](https://i.ibb.co/Fqc5zhV/Sum-Application-Diagrams-Layer-Architecture-drawio-1.jpg)
 
 ## :page_with_curl: Enlaces Útiles
  

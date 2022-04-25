@@ -3,14 +3,16 @@ package com.example.sumapplication.service;
 import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.model.SumResponseBody;
 import com.example.sumapplication.repository.SumResponseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ResponseService {
 
-    @Autowired
-    private SumResponseRepository sumResponseRepository;
+    public ResponseService(SumResponseRepository sumResponseRepository) {
+        this.sumResponseRepository = sumResponseRepository;
+    }
+
+    private final SumResponseRepository sumResponseRepository;
 
     public void setResponseWithParametersAndPositionsURL(String endpoint, SumRequestBody sumRequestBody) {
         sumResponseRepository.saveResponseSum(endpoint, sumRequestBody);

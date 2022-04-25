@@ -6,7 +6,8 @@ public class SumResponseBody {
     private String endpoint;
     private int resultSum;
 
-    public SumResponseBody() {}
+    public SumResponseBody() {
+    }
 
     public SumResponseBody(int idResponse, int idRequestFk, String endpoint, int resultSum) {
         this.idResponse = idResponse;

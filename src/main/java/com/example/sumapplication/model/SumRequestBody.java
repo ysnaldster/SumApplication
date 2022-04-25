@@ -1,12 +1,15 @@
 package com.example.sumapplication.model;
 
-public class SumRequestBody {
+import java.io.Serializable;
+
+public class SumRequestBody implements Serializable {
 
     private int idRequest;
     private int numberOne;
     private int numberTwo;
 
-    public SumRequestBody() {}
+    public SumRequestBody() {
+    }
 
     public SumRequestBody(int idRequest, int numberOne, int numberTwo) {
         this.idRequest = idRequest;

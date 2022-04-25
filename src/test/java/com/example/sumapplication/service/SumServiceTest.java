@@ -15,7 +15,9 @@ import org.springframework.test.context.ContextConfiguration;
 public class SumServiceTest {
 
     @Autowired
-    SumService sumService;
+    private SumService sumService;
+
+    final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Test
     public void testSum_GivenFourAndFive_ShouldReturnNine() throws JsonProcessingException {
@@ -23,7 +25,7 @@ public class SumServiceTest {
         int numberOne = 4;
         int numberTwo = 5;
         int resultExpected = 9;
-        final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
         SumResult sumResult = new SumResult(resultExpected);
         // Act
         ResponseEntity result = sumService.operationSum(numberOne, numberTwo);
