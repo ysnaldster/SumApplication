@@ -2,7 +2,6 @@ package com.example.sumapplication.service;
 
 import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.repository.SumRequestRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +16,10 @@ public class RequestService {
     private final ResponseService responseService;
 
     public void setNumbersWithParametersAndPositionsURL(String endpoint, int numberOne, int numberTwo) {
-        SumRequestBody sumRequestBody = sumRequestRepository.saveRequestNumbers(endpoint, numberOne, numberTwo);
+        SumRequestBody sumRequestBody = new SumRequestBody();
+        sumRequestBody.setNumberOne(numberOne);
+        sumRequestBody.setNumberTwo(numberTwo);
+        SumRequestBody sumRequestBody = sumRequestRepository.saveRequestNumbers(SumRequestBody);
         responseService.setResponseWithParametersAndPositionsURL(endpoint, sumRequestBody);
     }
 
