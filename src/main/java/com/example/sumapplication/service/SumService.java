@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class SumService {
 
-    public ResponseEntity operationSum(int numberOne, int numberTwo) {
+    public ResponseEntity<SumResult> operationSum(int numberOne, int numberTwo) {
         SumResult result = new SumResult();
         result.setSumResult(numberOne + numberTwo);
-        return new ResponseEntity(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

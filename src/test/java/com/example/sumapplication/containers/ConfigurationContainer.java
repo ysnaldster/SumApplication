@@ -28,14 +28,13 @@ public abstract class ConfigurationContainer {
             postgresDB.start();
             System.out.println("Container Started!!");
         }
-
     }
+
     //Success. You can now start the database server using
     @DynamicPropertySource
     public static void properties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", postgresDB::getJdbcUrl);
         registry.add("spring.datasource.username", postgresDB::getUsername);
         registry.add("spring.datasource.password", postgresDB::getPassword);
-
     }
 }

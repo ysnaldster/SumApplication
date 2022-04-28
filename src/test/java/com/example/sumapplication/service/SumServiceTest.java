@@ -28,7 +28,7 @@ public class SumServiceTest {
 
         SumResult sumResult = new SumResult(resultExpected);
         // Act
-        ResponseEntity result = sumService.operationSum(numberOne, numberTwo);
+        ResponseEntity<SumResult> result = sumService.operationSum(numberOne, numberTwo);
         // Assert
         Assertions.assertEquals(OBJECT_MAPPER.writeValueAsString(sumResult),
                 OBJECT_MAPPER.writeValueAsString(result.getBody()));

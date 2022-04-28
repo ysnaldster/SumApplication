@@ -12,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@EnableCaching
 public class SumControllerSaveDataTests extends ConfigurationContainer {
 
     @LocalServerPort
@@ -63,7 +61,7 @@ public class SumControllerSaveDataTests extends ConfigurationContainer {
         assertEquals(OBJECT_MAPPER.writeValueAsString(sumRequestBody),
                 OBJECT_MAPPER.writeValueAsString(requestService.getObjectForIdRequest(WANTED_ID)));
         assertEquals(OBJECT_MAPPER.writeValueAsString(sumResponseBody),
-                OBJECT_MAPPER.writeValueAsString(responseService.getObjectForIdResponse(WANTED_ID)));
+                OBJECT_MAPPER.writeValueAsString(responseService.getResponse(WANTED_ID)));
 
     }
 
@@ -82,7 +80,7 @@ public class SumControllerSaveDataTests extends ConfigurationContainer {
         assertEquals(OBJECT_MAPPER.writeValueAsString(sumRequestBody),
                 OBJECT_MAPPER.writeValueAsString(requestService.getObjectForIdRequest(WANTED_ID)));
         assertEquals(OBJECT_MAPPER.writeValueAsString(sumResponseBody),
-                OBJECT_MAPPER.writeValueAsString(responseService.getObjectForIdResponse(WANTED_ID)));
+                OBJECT_MAPPER.writeValueAsString(responseService.getResponse(WANTED_ID)));
     }
 
     @Test
@@ -100,6 +98,6 @@ public class SumControllerSaveDataTests extends ConfigurationContainer {
         assertEquals(OBJECT_MAPPER.writeValueAsString(sumRequestBody),
                 OBJECT_MAPPER.writeValueAsString(requestService.getObjectForIdRequest(WANTED_ID)));
         assertEquals(OBJECT_MAPPER.writeValueAsString(sumResponseBody),
-                OBJECT_MAPPER.writeValueAsString(responseService.getObjectForIdResponse(WANTED_ID)));
+                OBJECT_MAPPER.writeValueAsString(responseService.getResponse(WANTED_ID)));
     }
 }

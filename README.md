@@ -114,7 +114,7 @@ Fundamentado en la construcción de los diagramas de esta naturaleza, se realiz�
 ### Arquitectura de Capas 
 Mucha de las aplicaciones realizadas en SpringBoot optan por la utilización de la arquitectura de capas. La misma fue aplicada en sumApplication para construir los distintos modulos, paquetes, clases y demás; que bien permiten que el aplicativo funcione de una manera fluida, estructura y ordenada. 
 
-![Image2](https://i.ibb.co/Fqc5zhV/Sum-Application-Diagrams-Layer-Architecture-drawio-1.jpg)
+![ArchitectureLayersDiagram](https://i.ibb.co/N7vksFp/Sum-Application-Diagrams-Layer-Architecture-drawio-1.png)
 
 ## :page_with_curl: Enlaces Útiles
  

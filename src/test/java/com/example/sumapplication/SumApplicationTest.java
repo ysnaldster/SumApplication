@@ -6,7 +6,6 @@ import org.springframework.cache.annotation.EnableCaching;
 
 
 @SpringBootTest
-@EnableCaching
 public class SumApplicationTest {
 
     @Test

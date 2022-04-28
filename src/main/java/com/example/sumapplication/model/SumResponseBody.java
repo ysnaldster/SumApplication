@@ -1,6 +1,11 @@
 package com.example.sumapplication.model;
 
-public class SumResponseBody {
+import java.io.Serializable;
+
+public class SumResponseBody implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private int idResponse;
     private int idRequestFk;
     private String endpoint;

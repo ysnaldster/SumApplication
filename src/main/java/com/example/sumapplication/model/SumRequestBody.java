@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class SumRequestBody implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private int idRequest;
     private int numberOne;
     private int numberTwo;
