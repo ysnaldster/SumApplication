@@ -13,7 +13,7 @@ public abstract class ConfigurationContainer {
     private static final String PASSWORD_DB = "password123";
     private static final String INIT_SCRIPT = "schema.sql";
 
-    public static PostgreSQLContainer<?> postgresDB = new PostgreSQLContainer<>
+    public static final PostgreSQLContainer<?> postgresDB = new PostgreSQLContainer<>
             (POSTGRES_IMAGE)
             .withDatabaseName(DATA_BASE_NAME)
             .withUsername(USER_NAME)
@@ -24,15 +24,18 @@ public abstract class ConfigurationContainer {
             );
 
     static {
-        if (!postgresDB.isCreated() && !postgresDB.isRunning()) {
+        if (!postgresDB.isRunning()) {
             postgresDB.start();
-            System.out.println("Container Started!!");
+        } else {
+            postgresDB.stop();
         }
+
     }
 
     //Success. You can now start the database server using
     @DynamicPropertySource
     public static void properties(DynamicPropertyRegistry registry) {
+
         registry.add("spring.datasource.url", postgresDB::getJdbcUrl);
         registry.add("spring.datasource.username", postgresDB::getUsername);
         registry.add("spring.datasource.password", postgresDB::getPassword);
