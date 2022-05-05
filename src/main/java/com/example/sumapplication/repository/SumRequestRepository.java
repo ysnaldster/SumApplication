@@ -31,18 +31,16 @@ public class SumRequestRepository implements ISumRequestRepository {
     }
 
     @Override
-    public SumRequestBody saveRequestNumbers(SumRequestBody sumRequestBody) {
+    public int saveRequestNumbers(SumRequestBody sumRequestBody) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("numberOne", sumRequestBody.getNumberOne())
-                .addValue("numberTwo", sumRequestBody.getNumberTwo());
+        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("numberOne", sumRequestBody.getNumberOne()).addValue("numberTwo", sumRequestBody.getNumberTwo());
         String sql = "INSERT INTO requests(number_one, number_two)" + "VALUES(:numberOne, :numberTwo)";
         namedParameterJdbcTemplate.update(sql, parameters, keyHolder, new String[]{"id_request"});
         var id = Objects.requireNonNull(keyHolder.getKey()).longValue();
-        sumRequestBody.setIdRequest((int) id);
-        hashOperations.put(REQUEST_KEY + "." + id, "id_request", sumRequestBody.getIdRequest());
+        hashOperations.put(REQUEST_KEY + "." + id, "id_request", (int) id);
         hashOperations.put(REQUEST_KEY + "." + id, "numberOne", sumRequestBody.getNumberOne());
         hashOperations.put(REQUEST_KEY + "." + id, "numberTwo", sumRequestBody.getNumberTwo());
-        return sumRequestBody;
+        return (int) id;
     }
 
     @Override

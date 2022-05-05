@@ -16,15 +16,15 @@ public class RequestService {
     private final ResponseService responseService;
 
     public void setRequest(String endpoint, int numberOne, int numberTwo) {
-        SumRequestBody sumRequestBody = new SumRequestBody();
-        sumRequestBody.setNumberOne(numberOne);
-        sumRequestBody.setNumberTwo(numberTwo);
-        SumRequestBody request = sumRequestRepository.saveRequestNumbers(sumRequestBody);
+        SumRequestBody initRequest = new SumRequestBody(numberOne, numberTwo);
+        int idRequest = sumRequestRepository.saveRequestNumbers(initRequest);
+        SumRequestBody request = new SumRequestBody(idRequest, numberOne, numberTwo);
         responseService.setResponse(endpoint, request);
     }
 
     public void setNumbersWithBodyRequest(String endpoint, SumRequestBody sumRequestBody) {
-        SumRequestBody request = sumRequestRepository.saveRequestNumbers(sumRequestBody);
+        int idRequest = sumRequestRepository.saveRequestNumbers(sumRequestBody);
+        SumRequestBody request = new SumRequestBody(idRequest, sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());
         responseService.setResponse(endpoint, request);
     }
 

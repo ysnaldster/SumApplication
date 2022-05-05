@@ -19,6 +19,11 @@ public class SumRequestBody implements Serializable {
         this.numberTwo = numberTwo;
     }
 
+    public SumRequestBody(int numberOne, int numberTwo) {
+        this.numberOne = numberOne;
+        this.numberTwo = numberTwo;
+    }
+
     public int getIdRequest() {
         return idRequest;
     }

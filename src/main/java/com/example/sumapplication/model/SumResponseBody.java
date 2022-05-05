@@ -21,6 +21,12 @@ public class SumResponseBody implements Serializable {
         this.resultSum = resultSum;
     }
 
+    public SumResponseBody(int idRequestFk, String endpoint, int resultSum) {
+        this.idRequestFk = idRequestFk;
+        this.endpoint = endpoint;
+        this.resultSum = resultSum;
+    }
+
     public int getIdResponse() {
         return idResponse;
     }
