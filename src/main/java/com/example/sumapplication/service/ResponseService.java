@@ -14,7 +14,7 @@ public class ResponseService {
 
     private final SumResponseRepository sumResponseRepository;
 
-    public void setResponse(String endpoint, SumRequestBody sumRequestBody) {
+    public void saveResponse(String endpoint, SumRequestBody sumRequestBody) {
         SumResponseBody responseBody = new SumResponseBody(sumRequestBody.getIdRequest(), endpoint,
                 sumRequestBody.getNumberOne() + sumRequestBody.getNumberTwo());
         sumResponseRepository.saveResponseSum(responseBody);

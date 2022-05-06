@@ -33,8 +33,7 @@ public class SumResponseRepository implements ISumResponseRepository {
     @Override
     public void saveResponseSum(SumResponseBody sumResponseBody) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("idRequestFk", sumResponseBody.getIdRequestFk()).addValue("endpoint", sumResponseBody.getEndpoint())
-                .addValue("resultSum", sumResponseBody.getResultSum());
+        MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("idRequestFk", sumResponseBody.getIdRequestFk()).addValue("endpoint", sumResponseBody.getEndpoint()).addValue("resultSum", sumResponseBody.getResultSum());
         String sql = "INSERT INTO RESPONSES (id_request_fk, endpoint, result_sum) VALUES (:idRequestFk, :endpoint, :resultSum)";
         namedParameterJdbcTemplate.update(sql, parameters, keyHolder, new String[]{"id_response"});
         var id = Objects.requireNonNull(keyHolder.getKey()).longValue();

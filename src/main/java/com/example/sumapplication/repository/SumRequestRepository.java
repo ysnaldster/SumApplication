@@ -3,6 +3,7 @@ package com.example.sumapplication.repository;
 import com.example.sumapplication.interfaces.ISumRequestRepository;
 import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.repository.mapper.SumRequestMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -18,6 +19,9 @@ import java.util.Objects;
 @Repository
 @Transactional
 public class SumRequestRepository implements ISumRequestRepository {
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     public static final String REQUEST_KEY = "REQUEST";
 

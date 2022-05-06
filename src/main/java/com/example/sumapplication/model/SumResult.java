@@ -6,6 +6,9 @@ public class SumResult {
     public SumResult() {
     }
 
+    public SumResult(int numberOne, int numberTwo) {
+    }
+
     public SumResult(int sumResult) {
         this.sumResult = sumResult;
     }

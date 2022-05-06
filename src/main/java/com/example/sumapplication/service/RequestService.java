@@ -19,13 +19,13 @@ public class RequestService {
         SumRequestBody initRequest = new SumRequestBody(numberOne, numberTwo);
         int idRequest = sumRequestRepository.saveRequestNumbers(initRequest);
         SumRequestBody request = new SumRequestBody(idRequest, numberOne, numberTwo);
-        responseService.setResponse(endpoint, request);
+        responseService.saveResponse(endpoint, request);
     }
 
     public void setNumbersWithBodyRequest(String endpoint, SumRequestBody sumRequestBody) {
         int idRequest = sumRequestRepository.saveRequestNumbers(sumRequestBody);
         SumRequestBody request = new SumRequestBody(idRequest, sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());
-        responseService.setResponse(endpoint, request);
+        responseService.saveResponse(endpoint, request);
     }
 
     public SumRequestBody getObjectForIdRequest(int idRequest) {
