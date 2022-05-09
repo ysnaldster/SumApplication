@@ -49,6 +49,12 @@ public class SumResponseRepository implements ISumResponseRepository {
     }
 
     @Override
+    public SumResponseBody findResponseAtRedis(int idResponse) throws JsonProcessingException {
+        var responseResult = redisTemplate.opsForValue().get(RESPONSE_KEY + "." + idResponse);
+        return OBJECT_MAPPER.readValue(responseResult, SumResponseBody.class);
+    }
+
+    @Override
     public SumResponseBody getDataOfTableResponses(int idResponse) {
         SqlParameterSource namedParameters = new MapSqlParameterSource("idResponse", idResponse);
         return namedParameterJdbcTemplate.queryForObject("SELECT * FROM RESPONSES WHERE ID_RESPONSE = :idResponse", namedParameters, new SumResponseMapper());

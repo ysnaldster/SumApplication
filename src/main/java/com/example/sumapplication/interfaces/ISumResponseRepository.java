@@ -9,6 +9,8 @@ public interface ISumResponseRepository {
 
     void saveResponseAtRedis(SumResponseBody sumResponseBody) throws JsonProcessingException;
 
+    SumResponseBody findResponseAtRedis(int idResponse) throws JsonProcessingException;
+
     SumResponseBody getDataOfTableResponses(int idResponse);
 
 }

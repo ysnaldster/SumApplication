@@ -1,13 +1,14 @@
-package com.example.sumapplication.controller;
+package com.example.sumapplication.interfaces.controller;
 
 
 import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.model.SumResponseBody;
 import com.example.sumapplication.model.SumResult;
 import com.example.sumapplication.service.RequestService;
-import com.example.sumapplication.service.SumService;
+import com.example.sumapplication.service.ResponseService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,39 +26,40 @@ public class SumController {
     @Value("${endpointName.requestBody}")
     private String endpointNameRequestBody;
 
-    public SumController(RequestService requestService, SumService sumService) {
+    public SumController(RequestService requestService, ResponseService responseService) {
         this.requestService = requestService;
-        this.sumService = sumService;
+        this.responseService = responseService;
     }
 
     private final RequestService requestService;
 
-    private final SumService sumService;
+    private final ResponseService responseService;
 
     @PostMapping(value = "/requestParam.postSum", produces = "application/json")
     public ResponseEntity<SumResult> postSumWithRequestParam(@RequestParam int numberOne, @RequestParam int numberTwo) throws JsonProcessingException {
         String endpoint = endpointNameRequestParam;
-        requestService.setRequest(endpoint, numberOne, numberTwo);
-        return sumService.operationSum(numberOne, numberTwo);
+        SumResponseBody result = requestService.saveRequest(endpoint, numberOne, numberTwo);
+        return new ResponseEntity<>(new SumResult(result.getResultSum()), HttpStatus.OK);
     }
 
     @PostMapping(value = "/pathVariable.postSum/{numberOne}/{numberTwo}", produces = "application/json")
     public ResponseEntity<SumResult> postSumWithPathVariable(@PathVariable("numberOne") int numberOne, @PathVariable("numberTwo") int numberTwo) throws JsonProcessingException {
         String endpoint = endpointNamePathVariable;
-        requestService.setRequest(endpoint, numberOne, numberTwo);
-        return sumService.operationSum(numberOne, numberTwo);
+        SumResponseBody result = requestService.saveRequest(endpoint, numberOne, numberTwo);
+        return new ResponseEntity<>(new SumResult(result.getResultSum()), HttpStatus.OK);
     }
 
     @PostMapping(value = "/requestBody.postSum", produces = "application/json")
     public ResponseEntity<SumResult> postSumWithRequestBody(@RequestBody SumRequestBody sumRequestBody) throws JsonProcessingException {
         String endpoint = endpointNameRequestBody;
-        requestService.setNumbersWithBodyRequest(endpoint, sumRequestBody);
-        return sumService.operationSum(sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());
+        SumResponseBody result = requestService.saveRequestWithBodyRequest(endpoint, sumRequestBody);
+        return new ResponseEntity<>(new SumResult(result.getResultSum()), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/requestParam.getSumResponseBody", produces = "application/json")
+    @GetMapping(value = "/requestParam.getSumResponseBody", produces = "application/json")
     public ResponseEntity<SumResponseBody> findSumResponseBody(@RequestParam int idResponse) throws JsonProcessingException {
-        
+        //Poner restriccion de retorno cuando no se encuentra ningun objecto!!
+        return new ResponseEntity<>(responseService.findResponse(idResponse), HttpStatus.OK);
     }
 
 }

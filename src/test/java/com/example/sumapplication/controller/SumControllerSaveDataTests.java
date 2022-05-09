@@ -58,10 +58,8 @@ public class SumControllerSaveDataTests extends ConfigurationContainer {
         String request = String.format("/sums/pathVariable.postSum/%s/%s", numberOne, numberTwo);
         restTemplate.postForLocation(String.format(HOST, port, request), null);
         // Assert
-        assertEquals(OBJECT_MAPPER.writeValueAsString(sumRequestBody),
-                OBJECT_MAPPER.writeValueAsString(requestService.getObjectForIdRequest(WANTED_ID)));
-        assertEquals(OBJECT_MAPPER.writeValueAsString(sumResponseBody),
-                OBJECT_MAPPER.writeValueAsString(responseService.getResponse(WANTED_ID)));
+        assertEquals(OBJECT_MAPPER.writeValueAsString(sumRequestBody), OBJECT_MAPPER.writeValueAsString(requestService.getObjectForIdRequest(WANTED_ID)));
+        assertEquals(OBJECT_MAPPER.writeValueAsString(sumResponseBody), OBJECT_MAPPER.writeValueAsString(responseService.getResponse(WANTED_ID)));
 
     }
 
@@ -77,10 +75,8 @@ public class SumControllerSaveDataTests extends ConfigurationContainer {
         String request = "/sums/requestBody.postSum";
         restTemplate.postForLocation(String.format(HOST, port, request), sumRequestBody);
         // Assert
-        assertEquals(OBJECT_MAPPER.writeValueAsString(sumRequestBody),
-                OBJECT_MAPPER.writeValueAsString(requestService.getObjectForIdRequest(WANTED_ID)));
-        assertEquals(OBJECT_MAPPER.writeValueAsString(sumResponseBody),
-                OBJECT_MAPPER.writeValueAsString(responseService.getResponse(WANTED_ID)));
+        assertEquals(OBJECT_MAPPER.writeValueAsString(sumRequestBody), OBJECT_MAPPER.writeValueAsString(requestService.getObjectForIdRequest(WANTED_ID)));
+        assertEquals(OBJECT_MAPPER.writeValueAsString(sumResponseBody), OBJECT_MAPPER.writeValueAsString(responseService.getResponse(WANTED_ID)));
     }
 
     @Test
@@ -95,9 +91,7 @@ public class SumControllerSaveDataTests extends ConfigurationContainer {
         String request = String.format("/sums/requestParam.postSum?numberOne=%s&numberTwo=%s", numberOne, numberTwo);
         restTemplate.postForLocation(String.format(HOST, port, request), null);
         // Assert
-        assertEquals(OBJECT_MAPPER.writeValueAsString(sumRequestBody),
-                OBJECT_MAPPER.writeValueAsString(requestService.getObjectForIdRequest(WANTED_ID)));
-        assertEquals(OBJECT_MAPPER.writeValueAsString(sumResponseBody),
-                OBJECT_MAPPER.writeValueAsString(responseService.getResponse(WANTED_ID)));
+        assertEquals(OBJECT_MAPPER.writeValueAsString(sumRequestBody), OBJECT_MAPPER.writeValueAsString(requestService.getObjectForIdRequest(WANTED_ID)));
+        assertEquals(OBJECT_MAPPER.writeValueAsString(sumResponseBody), OBJECT_MAPPER.writeValueAsString(responseService.getResponse(WANTED_ID)));
     }
 }

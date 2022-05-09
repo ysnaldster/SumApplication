@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -28,9 +29,9 @@ public class SumServiceTest {
 
         SumResult sumResult = new SumResult(resultExpected);
         // Act
-        ResponseEntity<SumResult> result = sumService.operationSum(numberOne, numberTwo);
+        int initResult = sumService.operationSum(numberOne, numberTwo);
+        ResponseEntity<SumResult> result = new ResponseEntity<>(new SumResult(initResult), HttpStatus.OK);
         // Assert
-        Assertions.assertEquals(OBJECT_MAPPER.writeValueAsString(sumResult),
-                OBJECT_MAPPER.writeValueAsString(result.getBody()));
+        Assertions.assertEquals(OBJECT_MAPPER.writeValueAsString(sumResult), OBJECT_MAPPER.writeValueAsString(result.getBody()));
     }
 }
