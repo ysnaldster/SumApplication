@@ -1,4 +1,4 @@
-package com.example.sumapplication.interfaces.controller;
+package com.example.sumapplication.controller;
 
 
 import com.example.sumapplication.model.SumRequestBody;

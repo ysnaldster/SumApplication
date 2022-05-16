@@ -6,7 +6,7 @@ import com.example.sumapplication.model.SumResponseBody;
 import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,8 +38,8 @@ public class SumControllerSaveDataTests extends ConfigurationContainer {
     final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     final int WANTED_ID = 1;
 
-    @AfterEach
-    public void tearDown() {
+    @BeforeEach
+    public void setUp() {
         jdbcTemplate.execute("DELETE FROM RESPONSES");
         jdbcTemplate.execute("ALTER SEQUENCE RESPONSES_ID_RESPONSE_SEQ RESTART WITH 1");
         jdbcTemplate.execute("DELETE FROM REQUESTS");

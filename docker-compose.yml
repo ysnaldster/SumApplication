@@ -4,11 +4,15 @@ services:
     image: postgres:12
     restart: always
     environment:
-      - POSTGRES_USER=user
+      - POSTGRES_USER=ysnaldo
       - POSTGRES_PASSWORD=password123
-      - POSTGRES_DB=sumdb
+      - POSTGRES_DB=sumApplicationDb
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/
     ports:
       - '5431:5432'
-
+  cache:
+    image: redis:6.2.7
+    restart: always
+    ports:
+      - '6379:6379'
