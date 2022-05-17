@@ -58,7 +58,8 @@ public class SumController {
 
     @GetMapping(value = "/requestParam.getSumResponseBody", produces = "application/json")
     public ResponseEntity<SumResponseBody> findSumResponseBody(@RequestParam int idResponse) throws JsonProcessingException {
-        //Poner restriccion de retorno cuando no se encuentra ningun objecto!!
+        //Preguntar:
+        // Es necesario crear una restriccion de retorno cuando no se encuentra ningun objecto en la memoria cache?
         return new ResponseEntity<>(responseService.findResponse(idResponse), HttpStatus.OK);
     }
 
