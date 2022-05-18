@@ -27,7 +27,7 @@ public class SumResponseRepository implements ISumResponseRepository {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public SumResponseRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, RedisTemplate<String, String> redisTemplate) {
+    public SumResponseRepository(RedisTemplate<String, String> redisTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.redisTemplate = redisTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
@@ -59,5 +59,4 @@ public class SumResponseRepository implements ISumResponseRepository {
         SqlParameterSource namedParameters = new MapSqlParameterSource("idResponse", idResponse);
         return namedParameterJdbcTemplate.queryForObject("SELECT * FROM RESPONSES WHERE ID_RESPONSE = :idResponse", namedParameters, new SumResponseMapper());
     }
-
 }

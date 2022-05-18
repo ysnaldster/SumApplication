@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @RequestMapping(value = "/sums", produces = "application/json")
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.OPTIONS})
@@ -57,10 +60,16 @@ public class SumController {
     }
 
     @GetMapping(value = "/requestParam.getSumResponseBody", produces = "application/json")
-    public ResponseEntity<SumResponseBody> findSumResponseBody(@RequestParam int idResponse) throws JsonProcessingException {
-        //Preguntar:
-        // Es necesario crear una restriccion de retorno cuando no se encuentra ningun objecto en la memoria cache?
-        return new ResponseEntity<>(responseService.findResponse(idResponse), HttpStatus.OK);
+    public ResponseEntity<?> findSumResponseBody(@RequestParam int idResponse) throws JsonProcessingException{
+        //La excepción se manejara con el objetivo de informarle al usuario sobre un 404, de un registro que no se encuentra.
+        //Se creara un Logger para informarle al desarrollador que lea el codigo, que se incluyo un registro exitosamente o que no se incluyo debido a un id erroneo.
+        try {
+            return new ResponseEntity<>(responseService.findResponse(idResponse), HttpStatus.OK);
+        } catch (IllegalArgumentException e ) {
+            Logger logger = Logger.getLogger("MyLogger");
+            logger.log(Level.INFO, "No se ha podido buscar");
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>("NO se encuentra", HttpStatus.NOT_FOUND);
+        }
     }
-
 }
