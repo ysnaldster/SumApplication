@@ -14,30 +14,38 @@ public abstract class ConfigurationContainer {
     private static final String PASSWORD_DB = "password123";
     private static final String INIT_SCRIPT = "schema.sql";
 
-    public static final PostgreSQLContainer<?> postgresDB = new PostgreSQLContainer<>(POSTGRES_IMAGE)
-            .withDatabaseName(DATA_BASE_NAME).withUsername(USER_NAME)
-            .withPassword(PASSWORD_DB)
-            .withInitScript(INIT_SCRIPT)
-            .waitingFor(Wait.forLogMessage(".*Success. You can now start the database server using.*", 1));
+    private static final String REDIS_IMAGE = "redis:6.2.7";
 
-    public static final GenericContainer<?> redis = new GenericContainer<>("redis:6.2.7").withExposedPorts(6379);
+    private static final int PORT_REDIS = 6379;
+
+    private static final PostgreSQLContainer<?> postgresSQL = new PostgreSQLContainer<>(POSTGRES_IMAGE);
+    private static final GenericContainer<?> redisContainer = new GenericContainer<>(REDIS_IMAGE);
 
     static {
-        if (!postgresDB.isRunning()) {
-            postgresDB.start();
-        } else {
-            postgresDB.stop();
+        final int TIME_WAITING = 1;
+        try (postgresSQL) {
+            postgresSQL.withUsername(USER_NAME);
+            postgresSQL.withPassword(PASSWORD_DB);
+            postgresSQL.withInitScript(INIT_SCRIPT);
+            postgresSQL.withDatabaseName(DATA_BASE_NAME);
+            postgresSQL.waitingFor(Wait.forLogMessage(".*Success. You can now start the database server using.*", TIME_WAITING));
+            redisContainer.withExposedPorts(PORT_REDIS);
         }
-        if (!redis.isRunning()) {
-            redis.start();
+        if (!postgresSQL.isRunning()) {
+            postgresSQL.start();
+        } else {
+            postgresSQL.stop();
+        }
+        if (!redisContainer.isRunning()) {
+            redisContainer.start();
         }
     }
 
     @DynamicPropertySource
     public static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgresDB::getJdbcUrl);
-        registry.add("spring.datasource.username", postgresDB::getUsername);
-        registry.add("spring.redis.port", () -> redis.getMappedPort(6379));
-        registry.add("spring.datasource.password", postgresDB::getPassword);
+        registry.add("spring.datasource.url", postgresSQL::getJdbcUrl);
+        registry.add("spring.datasource.username", postgresSQL::getUsername);
+        registry.add("spring.redis.port", () -> redisContainer.getMappedPort(PORT_REDIS));
+        registry.add("spring.datasource.password", postgresSQL::getPassword);
     }
 }
