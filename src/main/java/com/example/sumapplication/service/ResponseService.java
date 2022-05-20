@@ -29,12 +29,18 @@ public class ResponseService {
 
     public SumResponseBody findResponse(int idResponse) throws JsonProcessingException {
         SumResponseBody resultResponse;
-        if (sumResponseRepository.findResponseAtRedis(idResponse) == null) { //No esta en Redis
-            resultResponse = sumResponseRepository.getDataOfTableResponses(idResponse); // Busca objecto response en la base de datos PostgreSQL
-            if (resultResponse != null) { // Si se encuentra en la base de datos, almacena en redis
+        // Search at database Redis.
+            //First case: Data doesn't exist for database Redis.
+        if (sumResponseRepository.findResponseAtRedis(idResponse) == null) {
+                // Nested case: Search at PostgresSQL database.
+            resultResponse = sumResponseRepository.getDataOfTableResponses(idResponse);
+                    // Execute casa result response isn't null.
+            if (resultResponse != null) {
+                    // Insert result response object at database Redis with TTL of one minute.
                 sumResponseRepository.saveResponseAtRedis(resultResponse);
             }
         } else {
+            //Second case: Data exist at database Redis.
             resultResponse = sumResponseRepository.findResponseAtRedis(idResponse);
         }
         return resultResponse;
@@ -43,5 +49,4 @@ public class ResponseService {
     public SumResponseBody getResponse(int idResponse) {
         return sumResponseRepository.getDataOfTableResponses(idResponse);
     }
-
 }

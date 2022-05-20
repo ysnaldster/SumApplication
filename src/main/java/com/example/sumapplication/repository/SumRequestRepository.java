@@ -54,5 +54,4 @@ public class SumRequestRepository implements ISumRequestRepository {
         SqlParameterSource namedParameters = new MapSqlParameterSource("idRequest", idRequest);
         return namedParameterJdbcTemplate.queryForObject("SELECT * FROM REQUESTS WHERE ID_REQUEST = :idRequest", namedParameters, new SumRequestMapper());
     }
-
 }

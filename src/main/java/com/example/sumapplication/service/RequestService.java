@@ -35,5 +35,4 @@ public class RequestService {
     public SumRequestBody getObjectForIdRequest(int idRequest) {
         return sumRequestRepository.getRequest(idRequest);
     }
-
 }

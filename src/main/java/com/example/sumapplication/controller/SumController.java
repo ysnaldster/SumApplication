@@ -1,3 +1,6 @@
+/* IllegalArgumentException
+ * Exception present when user inserts an ID nonexistent.
+ * */
 package com.example.sumapplication.controller;
 
 
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +32,12 @@ public class SumController {
 
     @Value("${endpointName.requestBody}")
     private String endpointNameRequestBody;
+
+    @Value("${logger.name.requestBody}")
+    private String loggerNameException;
+
+    @Value("${logger.message.requestBody}")
+    private String loggerMessageException;
 
     public SumController(RequestService requestService, ResponseService responseService) {
         this.requestService = requestService;
@@ -60,16 +70,14 @@ public class SumController {
     }
 
     @GetMapping(value = "/requestParam.getSumResponseBody", produces = "application/json")
-    public ResponseEntity<?> findSumResponseBody(@RequestParam int idResponse) throws JsonProcessingException{
-        //La excepción se manejara con el objetivo de informarle al usuario sobre un 404, de un registro que no se encuentra.
-        //Se creara un Logger para informarle al desarrollador que lea el codigo, que se incluyo un registro exitosamente o que no se incluyo debido a un id erroneo.
+    public ResponseEntity<?> findSumResponseBody(@RequestParam int idResponse) throws JsonProcessingException {
+        String responseStatusExceptionMessage = "Registry with " + "{idResponse: " + "%s" + "}" + " doesn't exist";
         try {
             return new ResponseEntity<>(responseService.findResponse(idResponse), HttpStatus.OK);
-        } catch (IllegalArgumentException e ) {
-            Logger logger = Logger.getLogger("MyLogger");
-            logger.log(Level.INFO, "No se ha podido buscar");
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>("NO se encuentra", HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException e) {
+            Logger logger = Logger.getLogger(loggerNameException);
+            logger.log(Level.INFO, loggerMessageException);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(responseStatusExceptionMessage, idResponse));
         }
     }
 }
