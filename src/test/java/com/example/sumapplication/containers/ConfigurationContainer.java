@@ -30,11 +30,10 @@ public abstract class ConfigurationContainer {
             postgresSQL.withDatabaseName(DATA_BASE_NAME);
             postgresSQL.waitingFor(Wait.forLogMessage(".*Success. You can now start the database server using.*", TIME_WAITING));
             redisContainer.withExposedPorts(PORT_REDIS);
+            postgresSQL.start();
         }
         if (!postgresSQL.isRunning()) {
             postgresSQL.start();
-        } else {
-            postgresSQL.stop();
         }
         if (!redisContainer.isRunning()) {
             redisContainer.start();

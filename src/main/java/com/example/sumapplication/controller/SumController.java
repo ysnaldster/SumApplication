@@ -3,21 +3,19 @@
  * */
 package com.example.sumapplication.controller;
 
-
 import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.model.SumResponseBody;
 import com.example.sumapplication.model.SumResult;
 import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @RequestMapping(value = "/sums", produces = "application/json")
 @RestController
@@ -71,13 +69,14 @@ public class SumController {
 
     @GetMapping(value = "/requestParam.getSumResponseBody", produces = "application/json")
     public ResponseEntity<?> findSumResponseBody(@RequestParam int idResponse) throws JsonProcessingException {
-        String responseStatusExceptionMessage = "Registry with " + "{idResponse: " + "%s" + "}" + " doesn't exist";
         try {
             return new ResponseEntity<>(responseService.findResponse(idResponse), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            Logger logger = Logger.getLogger(loggerNameException);
-            logger.log(Level.INFO, loggerMessageException);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(responseStatusExceptionMessage, idResponse));
+            String responseStatusExceptionMessage = "Registry with " + "{idResponse: " + "%s" + "}" + " doesn't exist";
+            Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+            logger.error(e);
+            //CREAR MI PROPIA EXCEPCION
+            return new ResponseEntity<>(responseStatusExceptionMessage, HttpStatus.NOT_FOUND);
         }
     }
 }
