@@ -21,16 +21,14 @@ import java.util.concurrent.TimeUnit;
 @Transactional
 public class SumRequestRepository implements ISumRequestRepository {
 
-    public static final String REQUEST_KEY = "REQUEST";
+    private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private final RedisTemplate<String, String> redisTemplate;
+    private final NamedParameterJdbcTemplate NAMED_PARAMETER_JDBC_TEMPLATE;
+    private final RedisTemplate<String, String> REDIS_TEMPLATE;
 
     public SumRequestRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, RedisTemplate<String, String> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.REDIS_TEMPLATE = redisTemplate;
+        this.NAMED_PARAMETER_JDBC_TEMPLATE = namedParameterJdbcTemplate;
     }
 
     @Override
@@ -38,20 +36,21 @@ public class SumRequestRepository implements ISumRequestRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("numberOne", sumRequestBody.getNumberOne()).addValue("numberTwo", sumRequestBody.getNumberTwo());
         String sql = "INSERT INTO requests(number_one, number_two)" + "VALUES(:numberOne, :numberTwo)";
-        namedParameterJdbcTemplate.update(sql, parameters, keyHolder, new String[]{"id_request"});
+        NAMED_PARAMETER_JDBC_TEMPLATE.update(sql, parameters, keyHolder, new String[]{"id_request"});
         var id = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return (int) id;
     }
 
     @Override
     public void saveRequestAtRedis(SumRequestBody sumRequestBody) throws JsonProcessingException {
+        String requestKey = "REQUEST";
         String sumRequestBodyJson = OBJECT_MAPPER.writeValueAsString(sumRequestBody);
-        redisTemplate.opsForValue().set(REQUEST_KEY + "." + sumRequestBody.getIdRequest(), sumRequestBodyJson, 1, TimeUnit.MINUTES);
+        REDIS_TEMPLATE.opsForValue().set(requestKey + "." + sumRequestBody.getIdRequest(), sumRequestBodyJson, 1, TimeUnit.MINUTES);
     }
 
     @Override
     public SumRequestBody getRequest(int idRequest) {
         SqlParameterSource namedParameters = new MapSqlParameterSource("idRequest", idRequest);
-        return namedParameterJdbcTemplate.queryForObject("SELECT * FROM REQUESTS WHERE ID_REQUEST = :idRequest", namedParameters, new SumRequestMapper());
+        return NAMED_PARAMETER_JDBC_TEMPLATE.queryForObject("SELECT * FROM REQUESTS WHERE ID_REQUEST = :idRequest", namedParameters, new SumRequestMapper());
     }
 }

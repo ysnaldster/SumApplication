@@ -9,5 +9,4 @@ public interface ISumRequestRepository {
     void saveRequestAtRedis(SumRequestBody sumRequestBody) throws JsonProcessingException;
 
     SumRequestBody getRequest(int idRequest);
-
 }

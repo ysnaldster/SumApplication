@@ -3,6 +3,7 @@
  * */
 package com.example.sumapplication.controller;
 
+import com.example.sumapplication.model.NotFoundException;
 import com.example.sumapplication.model.SumRequestBody;
 import com.example.sumapplication.model.SumResponseBody;
 import com.example.sumapplication.model.SumResult;
@@ -31,52 +32,56 @@ public class SumController {
     @Value("${endpointName.requestBody}")
     private String endpointNameRequestBody;
 
-    @Value("${logger.name.requestBody}")
-    private String loggerNameException;
+    @Value("${exception.error.notFound}")
+    private String errorNotFound;
 
-    @Value("${logger.message.requestBody}")
-    private String loggerMessageException;
+    @Value("${exception.errorCode.notFound}")
+    private String errorCodeNotFound;
+
+    @Value("${exception.message.notFound}")
+    private String exceptionMessageNotFound;
 
     public SumController(RequestService requestService, ResponseService responseService) {
-        this.requestService = requestService;
-        this.responseService = responseService;
+        this.REQUEST_SERVICE = requestService;
+        this.RESPONSE_SERVICE = responseService;
     }
 
-    private final RequestService requestService;
+    private final RequestService REQUEST_SERVICE;
 
-    private final ResponseService responseService;
+    private final ResponseService RESPONSE_SERVICE;
+
+    private final Logger LOGGER = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
     @PostMapping(value = "/requestParam.postSum", produces = "application/json")
     public ResponseEntity<SumResult> postSumWithRequestParam(@RequestParam int numberOne, @RequestParam int numberTwo) throws JsonProcessingException {
         String endpoint = endpointNameRequestParam;
-        SumResponseBody result = requestService.saveRequest(endpoint, numberOne, numberTwo);
+        SumResponseBody result = REQUEST_SERVICE.saveRequest(endpoint, numberOne, numberTwo);
         return new ResponseEntity<>(new SumResult(result.getResultSum()), HttpStatus.OK);
     }
 
     @PostMapping(value = "/pathVariable.postSum/{numberOne}/{numberTwo}", produces = "application/json")
     public ResponseEntity<SumResult> postSumWithPathVariable(@PathVariable("numberOne") int numberOne, @PathVariable("numberTwo") int numberTwo) throws JsonProcessingException {
         String endpoint = endpointNamePathVariable;
-        SumResponseBody result = requestService.saveRequest(endpoint, numberOne, numberTwo);
+        SumResponseBody result = REQUEST_SERVICE.saveRequest(endpoint, numberOne, numberTwo);
         return new ResponseEntity<>(new SumResult(result.getResultSum()), HttpStatus.OK);
     }
 
     @PostMapping(value = "/requestBody.postSum", produces = "application/json")
     public ResponseEntity<SumResult> postSumWithRequestBody(@RequestBody SumRequestBody sumRequestBody) throws JsonProcessingException {
         String endpoint = endpointNameRequestBody;
-        SumResponseBody result = requestService.saveRequestWithBodyRequest(endpoint, sumRequestBody);
+        SumResponseBody result = REQUEST_SERVICE.saveRequestWithBodyRequest(endpoint, sumRequestBody);
         return new ResponseEntity<>(new SumResult(result.getResultSum()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/requestParam.getSumResponseBody", produces = "application/json")
     public ResponseEntity<?> findSumResponseBody(@RequestParam int idResponse) throws JsonProcessingException {
         try {
-            return new ResponseEntity<>(responseService.findResponse(idResponse), HttpStatus.OK);
+            return new ResponseEntity<>(RESPONSE_SERVICE.findResponse(idResponse), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            String responseStatusExceptionMessage = "Registry with " + "{idResponse: " + "%s" + "}" + " doesn't exist";
-            Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
-            logger.error(e);
-            //CREAR MI PROPIA EXCEPCION
-            return new ResponseEntity<>(responseStatusExceptionMessage, HttpStatus.NOT_FOUND);
+            LOGGER.error(e);
+            String detailNotFoundException = String.format("Registry with " + "{idResponse: " + "%s" + "}" + " doesn't exist", idResponse);
+            NotFoundException notFoundException = new NotFoundException(errorNotFound, errorCodeNotFound, exceptionMessageNotFound, detailNotFoundException);
+            return new ResponseEntity<>(notFoundException, HttpStatus.NOT_FOUND);
         }
     }
 }

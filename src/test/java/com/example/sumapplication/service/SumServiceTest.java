@@ -18,7 +18,7 @@ public class SumServiceTest {
     @Autowired
     private SumService sumService;
 
-    final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Test
     public void testSum_GivenFourAndFive_ShouldReturnNine() throws JsonProcessingException {

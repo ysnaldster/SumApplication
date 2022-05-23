@@ -11,5 +11,4 @@ public class SumApplicationTest extends ConfigurationContainer {
     @Test
     void contextLoads() {
     }
-
 }

@@ -1,10 +1,10 @@
 package com.example.sumapplication.model;
 
 public class NotFoundException {
-    private String error;
-    private String errorCode;
-    private String message;
-    private String detail;
+    private final String error;
+    private final String errorCode;
+    private final String message;
+    private final String detail;
 
     public NotFoundException(String error, String errorCode, String message, String detail) {
         this.error = error;
@@ -13,19 +13,19 @@ public class NotFoundException {
         this.detail = detail;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public String getError() {
+        return error;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public String getErrorCode() {
+        return errorCode;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getMessage() {
+        return message;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public String getDetail() {
+        return detail;
     }
 }

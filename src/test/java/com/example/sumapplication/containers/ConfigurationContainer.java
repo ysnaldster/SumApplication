@@ -18,20 +18,18 @@ public abstract class ConfigurationContainer {
 
     private static final int PORT_REDIS = 6379;
 
-    private static final PostgreSQLContainer<?> postgresSQL = new PostgreSQLContainer<>(POSTGRES_IMAGE);
-    private static final GenericContainer<?> redisContainer = new GenericContainer<>(REDIS_IMAGE);
+    private static final int TIME_WAITING = 1;
+
+    private static final PostgreSQLContainer<?> postgresSQL = new PostgreSQLContainer<>(POSTGRES_IMAGE)
+            .withDatabaseName(DATA_BASE_NAME)
+            .withUsername(USER_NAME)
+            .withPassword(PASSWORD_DB)
+            .withInitScript(INIT_SCRIPT)
+            .waitingFor(Wait.forLogMessage(".*Success. You can now start the database server using.*", TIME_WAITING));
+    private static final GenericContainer<?> redisContainer = new GenericContainer<>(REDIS_IMAGE)
+            .withExposedPorts(PORT_REDIS);
 
     static {
-        final int TIME_WAITING = 1;
-        try (postgresSQL) {
-            postgresSQL.withUsername(USER_NAME);
-            postgresSQL.withPassword(PASSWORD_DB);
-            postgresSQL.withInitScript(INIT_SCRIPT);
-            postgresSQL.withDatabaseName(DATA_BASE_NAME);
-            postgresSQL.waitingFor(Wait.forLogMessage(".*Success. You can now start the database server using.*", TIME_WAITING));
-            redisContainer.withExposedPorts(PORT_REDIS);
-            postgresSQL.start();
-        }
         if (!postgresSQL.isRunning()) {
             postgresSQL.start();
         }

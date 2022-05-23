@@ -19,17 +19,17 @@ import java.util.concurrent.TimeUnit;
 @Repository
 public class SumResponseRepository implements ISumResponseRepository {
 
-    public static final String RESPONSE_KEY = "RESPONSE";
+    private final String RESPONSE_KEY = "RESPONSE";
 
-    final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    private final RedisTemplate<String, String> redisTemplate;
+    private final RedisTemplate<String, String> REDIS_TEMPLATE;
 
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate NAMED_PARAMETER_JDBC_TEMPLATE;
 
     public SumResponseRepository(RedisTemplate<String, String> redisTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.redisTemplate = redisTemplate;
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.REDIS_TEMPLATE = redisTemplate;
+        this.NAMED_PARAMETER_JDBC_TEMPLATE = namedParameterJdbcTemplate;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class SumResponseRepository implements ISumResponseRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameters = new MapSqlParameterSource().addValue("idRequestFk", sumResponseBody.getIdRequestFk()).addValue("endpoint", sumResponseBody.getEndpoint()).addValue("resultSum", sumResponseBody.getResultSum());
         String sql = "INSERT INTO RESPONSES (id_request_fk, endpoint, result_sum) VALUES (:idRequestFk, :endpoint, :resultSum)";
-        namedParameterJdbcTemplate.update(sql, parameters, keyHolder, new String[]{"id_response"});
+        NAMED_PARAMETER_JDBC_TEMPLATE.update(sql, parameters, keyHolder, new String[]{"id_response"});
         var id = Objects.requireNonNull(keyHolder.getKey()).longValue();
         return (int) id;
     }
@@ -45,18 +45,18 @@ public class SumResponseRepository implements ISumResponseRepository {
     @Override
     public void saveResponseAtRedis(SumResponseBody sumResponseBody) throws JsonProcessingException {
         String sumResponseBodyJson = OBJECT_MAPPER.writeValueAsString(sumResponseBody);
-        redisTemplate.opsForValue().set(RESPONSE_KEY + "." + sumResponseBody.getIdRequestFk(), sumResponseBodyJson, 1, TimeUnit.MINUTES);
+        REDIS_TEMPLATE.opsForValue().set(RESPONSE_KEY + "." + sumResponseBody.getIdRequestFk(), sumResponseBodyJson, 1, TimeUnit.MINUTES);
     }
 
     @Override
     public SumResponseBody findResponseAtRedis(int idResponse) throws JsonProcessingException {
-        var responseResult = redisTemplate.opsForValue().get(RESPONSE_KEY + "." + idResponse);
+        var responseResult = REDIS_TEMPLATE.opsForValue().get(RESPONSE_KEY + "." + idResponse);
         return OBJECT_MAPPER.readValue(responseResult, SumResponseBody.class);
     }
 
     @Override
     public SumResponseBody getDataOfTableResponses(int idResponse) {
         SqlParameterSource namedParameters = new MapSqlParameterSource("idResponse", idResponse);
-        return namedParameterJdbcTemplate.queryForObject("SELECT * FROM RESPONSES WHERE ID_RESPONSE = :idResponse", namedParameters, new SumResponseMapper());
+        return NAMED_PARAMETER_JDBC_TEMPLATE.queryForObject("SELECT * FROM RESPONSES WHERE ID_RESPONSE = :idResponse", namedParameters, new SumResponseMapper());
     }
 }

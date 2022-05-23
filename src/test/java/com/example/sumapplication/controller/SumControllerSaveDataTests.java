@@ -34,9 +34,9 @@ public class SumControllerSaveDataTests extends ConfigurationContainer {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    final String HOST = "http://localhost:%s%s";
-    final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    final int WANTED_ID = 1;
+    private final String HOST = "http://localhost:%s%s";
+    private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private final int WANTED_ID = 1;
 
     @BeforeEach
     public void setUp() {

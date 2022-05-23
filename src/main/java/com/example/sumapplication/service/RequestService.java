@@ -10,29 +10,29 @@ import org.springframework.stereotype.Service;
 public class RequestService {
 
     public RequestService(SumRequestRepository sumRequestRepository, ResponseService responseService) {
-        this.sumRequestRepository = sumRequestRepository;
-        this.responseService = responseService;
+        this.SUM_REQUEST_REPOSITORY = sumRequestRepository;
+        this.RESPONSE_SERVICE = responseService;
     }
 
-    private final SumRequestRepository sumRequestRepository;
-    private final ResponseService responseService;
+    private final SumRequestRepository SUM_REQUEST_REPOSITORY;
+    private final ResponseService RESPONSE_SERVICE;
 
     public SumResponseBody saveRequest(String endpoint, int numberOne, int numberTwo) throws JsonProcessingException {
         SumRequestBody initRequest = new SumRequestBody(numberOne, numberTwo);
-        int idRequest = sumRequestRepository.saveRequestNumbers(initRequest);
+        int idRequest = SUM_REQUEST_REPOSITORY.saveRequestNumbers(initRequest);
         SumRequestBody request = new SumRequestBody(idRequest, numberOne, numberTwo);
-        sumRequestRepository.saveRequestAtRedis(request);
-        return responseService.saveResponse(endpoint, request);
+        SUM_REQUEST_REPOSITORY.saveRequestAtRedis(request);
+        return RESPONSE_SERVICE.saveResponse(endpoint, request);
     }
 
     public SumResponseBody saveRequestWithBodyRequest(String endpoint, SumRequestBody sumRequestBody) throws JsonProcessingException {
-        int idRequest = sumRequestRepository.saveRequestNumbers(sumRequestBody);
+        int idRequest = SUM_REQUEST_REPOSITORY.saveRequestNumbers(sumRequestBody);
         SumRequestBody request = new SumRequestBody(idRequest, sumRequestBody.getNumberOne(), sumRequestBody.getNumberTwo());
-        sumRequestRepository.saveRequestAtRedis(request);
-        return responseService.saveResponse(endpoint, request);
+        SUM_REQUEST_REPOSITORY.saveRequestAtRedis(request);
+        return RESPONSE_SERVICE.saveResponse(endpoint, request);
     }
 
     public SumRequestBody getObjectForIdRequest(int idRequest) {
-        return sumRequestRepository.getRequest(idRequest);
+        return SUM_REQUEST_REPOSITORY.getRequest(idRequest);
     }
 }

@@ -2,7 +2,6 @@ package com.example.sumapplication.model;
 
 public class SumResponseBody {
 
-
     private int idResponse;
     private int idRequestFk;
     private String endpoint;

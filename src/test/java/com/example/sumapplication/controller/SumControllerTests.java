@@ -24,8 +24,8 @@ public class SumControllerTests extends ConfigurationContainer {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    final String HOST = "http://localhost:%s%s";
-    final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private final String HOST = "http://localhost:%s%s";
+    private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Test
     public void testGetStatusCodeRequestParams_GivenNumberOneIsIntegerAndNumberTwoIsString_Should400BadRequest() throws Exception {
