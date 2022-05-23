@@ -50,7 +50,7 @@ public class SumController {
 
     private final ResponseService RESPONSE_SERVICE;
 
-    private final Logger LOGGER = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+    private final Logger LOGGER = LogManager.getLogger(SumController.class);
 
     @PostMapping(value = "/requestParam.postSum", produces = "application/json")
     public ResponseEntity<SumResult> postSumWithRequestParam(@RequestParam int numberOne, @RequestParam int numberTwo) throws JsonProcessingException {
