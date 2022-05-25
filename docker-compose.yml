@@ -1,7 +1,22 @@
 version: '3.8'
 services:
+  app:
+    image: 'sum-application:latest'
+    ports:
+      - '8080:8080'
+    build:
+      context: .
+      dockerfile: "Dockerfile"
+    container_name: sum-application
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5431/sumApplicationDb
+      - SPRING_DATASOURCE_USERNAME=ysnaldo
+      - SPRING_DATASOURCE_PASSWORD=password123
   db:
     image: postgres:12
+    container_name: postgres_db
     restart: always
     environment:
       - POSTGRES_USER=ysnaldo
@@ -16,3 +31,4 @@ services:
     restart: always
     ports:
       - '6379:6379'
+
