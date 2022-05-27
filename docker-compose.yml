@@ -25,7 +25,7 @@ services:
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/
     ports:
-      - "5432:5432"
+      - "5431:5432"
   redis:
     image: redis:6.2.7
     container_name: redis-cache
