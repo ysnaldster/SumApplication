@@ -3,7 +3,10 @@
  * */
 package com.example.sumapplication.controller;
 
-import com.example.sumapplication.model.*;
+import com.example.sumapplication.model.NotFoundException;
+import com.example.sumapplication.model.SumRequestBody;
+import com.example.sumapplication.model.SumResponseBody;
+import com.example.sumapplication.model.SumResult;
 import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -83,10 +85,8 @@ public class SumController {
         }
     }
 
-    @PostMapping(value = "/message_status", produces = "application/json")
-    public ResponseEntity<MessageStatus> getStatusOkConnectionAWS() {
-        String messageStatus = "Status Connection Ok";
-        MessageStatus messageStatusOk = new MessageStatus(messageStatus);
-        return new ResponseEntity<>(messageStatusOk, HttpStatus.OK);
+    @GetMapping(value = "/messageStatusOk", produces = "application/json")
+    public String getStatusOkConnectionAWS() {
+        return "statusOk";
     }
 }

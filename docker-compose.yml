@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   app:
-    image: 'sum-application:latest'
+    image: 'sum-application'
     ports:
       - '8080:8080'
     build: ./
