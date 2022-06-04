@@ -3,10 +3,7 @@
  * */
 package com.example.sumapplication.controller;
 
-import com.example.sumapplication.model.NotFoundException;
-import com.example.sumapplication.model.SumRequestBody;
-import com.example.sumapplication.model.SumResponseBody;
-import com.example.sumapplication.model.SumResult;
+import com.example.sumapplication.model.*;
 import com.example.sumapplication.service.RequestService;
 import com.example.sumapplication.service.ResponseService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -85,8 +82,10 @@ public class SumController {
         }
     }
 
-    @GetMapping(value = "/messageStatusOk", produces = "application/json")
-    public String getStatusOkConnectionAWS() {
-        return "statusOk";
+    @GetMapping(value = "/status", produces = "application/json")
+    public ResponseEntity<StatusConnection> getStatusOkConnectionAWS() {
+        String messageStatus = "Ok";
+        StatusConnection statusConnection = new StatusConnection(messageStatus);
+        return new ResponseEntity<>(statusConnection, HttpStatus.OK);
     }
 }

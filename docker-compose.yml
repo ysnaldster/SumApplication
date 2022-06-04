@@ -3,7 +3,7 @@ services:
   app:
     image: 'sum-application'
     ports:
-      - '8080:8080'
+      - '80:80'
     build: ./
     container_name: sum-application
     depends_on:
