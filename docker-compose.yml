@@ -12,8 +12,8 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/sumApplicationDb
       - SPRING_DATASOURCE_USERNAME=ysnaldo
       - SPRING_DATASOURCE_PASSWORD=password123
-      - SPRING_REDIS_HOST=redis
-      - SPRING_REDIS_PORT=6379
+      - POSTGRES_HOST=localhost
+      - REDIS_HOST=localhost
   dbpostgresql:
     image: postgres:12
     container_name: postgres_db
@@ -22,10 +22,11 @@ services:
       - POSTGRES_USER=ysnaldo
       - POSTGRES_PASSWORD=password123
       - POSTGRES_DB=sumApplicationDb
+      - POSTGRES_HOST=localhost
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/
     ports:
-      - "5431:5432"
+      - "5432:5432"
   redis:
     image: redis:6.2.7
     container_name: redis-cache
